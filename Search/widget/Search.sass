@@ -1,0 +1,198 @@
+.container-for-search-panel
+    font-size: 1.2em
+    display: grid
+    grid-template-columns: minmax(0, 1fr) minmax(7em, 40em) minmax(0, 1fr)
+    position: relative
+
+.search-panel
+    grid-column: 2 / 3
+
+    font-size: 1em
+
+    $padding: .7em
+    $size-margin-for-btn-send: .1em
+    $size-for-btn: 1em + $padding * 2 - $size-margin-for-btn-send * 2
+
+    $col_1: 1em                      // кнопка выбора того что искать
+    $col_2: minmax(10em, 1fr)        // строка поиска  
+    $col_3: minmax(0, auto)          // кнопки открытия окон с фильтрами
+    $col_4: $size-for-btn - $padding // кнопка старта поиска
+
+    display: grid
+    grid-column-gap: .2em
+    grid-template-columns: $col_1 $col_2 $col_3 $col_4
+    
+    margin: .5em
+    padding: $padding
+    border-radius: 1.15em
+
+    z-index: 10
+
+    background: var(--color-bg)
+    color: var(--color-content-70)
+    box-shadow: 0px 0px 2px var(--color-shodow)
+
+    &:hover
+        box-shadow: 0px 0px 6px var(--color-shodow)
+
+    &__what-search
+        grid-column: 1 / 2
+
+        justify-self: start
+        align-self: start
+
+        width: 1em + .4em * 2
+        height: 1em + .4em * 2
+
+        padding: .1em
+        margin: -.4em
+
+        background: var(--color-window)
+
+    &__body-request
+        grid-column: 2 / 3
+        // background-color: yellow
+
+
+        padding: 0 1em
+        // margin: 0
+
+        display: flex
+        flex-wrap: wrap
+        align-items: center
+
+        $offset: .6em
+
+        margin: calc($offset / 2 * -1)
+
+        button
+            font-size: .8em
+
+            padding: .2em .6em
+            background: var(--color-request-send)
+            margin: .1em
+
+            // transform: scale(.8)
+
+            height: 1em + $offset
+
+            border: .1em dashed transparent
+
+            svg
+                transform: scale(.7)
+
+                path 
+                    fill: white
+
+            div
+                color: white
+
+            &:hover
+                background: #ac1a1d
+                transition: background .9s var(--animation-timing-standart)
+                border-color: var(--color-window)
+
+        input
+            height: 1em + $offset
+            margin: .1em
+            padding-left: .4em
+            background: transparent
+            color: var(--color-content-70)
+
+            flex-grow: 1
+
+            font-weight: 500
+
+    &__adding-filters
+        grid-column: 3 / 4
+        // background-color: yellow
+
+        display: flex
+
+        justify-self: end
+        align-self: end
+
+        button
+            width: 1em + .2em * 2
+            height: 1em + .2em * 2
+            padding: 0
+            margin: -.2em .2em
+
+    &__btn-send
+        grid-column: 4 / 5
+
+        justify-self: end
+        align-self: end
+
+        width: $size-for-btn
+        height: $size-for-btn
+        border-radius: 2em
+
+        margin: $padding * -1
+        bottom: $size-margin-for-btn-send
+        right: $size-margin-for-btn-send
+
+        background: var(--color-request-send)
+        
+        svg > path 
+            fill: white
+
+        svg
+            transform: scale(1.1)
+
+        .btn-animation-bubble
+            background: #c8e4ff
+
+    &__filters
+        // background-color: blue
+
+        padding: 0
+        margin: 0
+
+        display: flex
+        align-items: center
+
+        button
+            margin: -1em .4em
+            padding: .2em .2em .2em .6em
+            background: var(--color-request-send)
+
+            transform: scale(.8)
+            
+
+            svg > path 
+                fill: white
+                opacity: .8
+        
+
+        .btn-cucumber
+            // border: 1px solid var(--color-window)
+            // background: transparent
+            // border: .16em solid var(--color-window)
+
+            // padding: .1em .8em
+            
+
+            
+
+            // transform: scale(.6)
+
+    
+    // &__text-request
+    //     background-color: yellow
+    //     // flex-grow: 1
+    //     min-width: 10em
+    
+    
+.parent-blind
+    position: static
+
+    .blind
+        position: absolute
+        top: 0
+        bottom: 0
+        left: 0
+        right: 0
+
+        background: var(--color-window-70)
+        backdrop-filter: blur(2px)

@@ -1,0 +1,106 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap'); */
+
+
+
+body.dark-theme {
+    --color-window: #0f0f0f;
+    --color-window-70: rgba(15, 15, 15, .7);
+    --color-bg: hsl(0, 0%, 13%); /*#202020*/
+    --color-bg-70: hsla(0, 0%, 13%, .7); /*#202020*/
+    --color-content-100: #D0D0D2;
+    --color-content-70: rgba(208, 208, 210, .7);
+    --color-content-50: rgba(208, 208, 210, .5);
+    --color-bg-fly: rgba(255, 255, 255, .2);
+    --color-shodow: rgba(208, 208, 210, .5);
+
+    --color-link: hsl(210, 50%, 70%);
+    --color-link-hover: hsl(210, 70%, 70%);
+    --color-link-visited: hsl(240, 70%, 70%);
+
+    --color-request-send: rgb(46, 108, 215);
+    --coo: #80808080;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    
+
+    --color-window: #e3e3e3;
+    --color-window-70: rgba(227, 227, 227, .7);
+    --color-bg: #FFF;
+    --color-bg-70: hsla(0, 0%, 100%, .7);
+    --color-content-100: #2B2B2B;
+    --color-content-70: rgba(43, 43, 43, .7);
+    --color-content-50: rgba(43, 43, 43, .5);
+    --color-bg-fly: rgba(0, 0, 0, .2);
+    --color-shodow: rgba(0, 0, 0, .5);
+
+    --animation-timing-standart: cubic-bezier(0.075, 0.82, 0.165, 1);
+
+    --color-link: hsl(210, 50%, 50%);
+    --color-link-hover: hsl(210, 100%, 50%);
+    --color-link-visited: hsl(240, 70%, 70%);
+
+    --color-request-send: #4b87ff;
+    --color-request-send: #ffaa00;
+}
+
+
+body{
+    background: var(--color-window);
+    transition: background .3s cubic-bezier(0.075, 0.82, 0.165, 1);
+    height: 100vh;
+    width: 100vw;
+    margin: 0;
+    
+    display: flex;
+    align-items: stretch;
+}
+
+button.change-theme {
+    position: absolute;
+    right: 30px;
+    top: 30px;
+    width: 50px;
+    height: 50px;
+    border-radius: 100px;
+    background: var(--color-bg);
+    color: var(--color-content-100);
+    transition: background, color .3s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+#root {
+    flex-grow: 1;
+
+    display: flex;
+    flex-direction: column;
+    
+}
+
+/* #frame {
+    background-color: orangered;
+    display: flex;
+    flex-direction: column;
+} */
+
+* {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0, 0, 0, .3) rgba(0, 0, 0, .1);
+}
+
+*::-webkit-scrollbar {
+    width: .3rem;
+    height: .3rem;
+}
+    
+    
+*::-webkit-scrollbar-track {
+    background-color: rgba(0, 0, 0, .1);
+}
+    
+*::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, .3);
+    border-radius: 8px;
+}
+    
+    

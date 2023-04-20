@@ -1,0 +1,8 @@
+# мусор и зависимости
+*__pycache__/
+*node_modules
+admin.md
+
+# контент
+*db.sqlite3
+*.db

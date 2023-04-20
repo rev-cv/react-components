@@ -1,0 +1,226 @@
+/*!***********************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/postcss-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!../reset.css ***!
+  \***********************************************************************************************************************************************/
+* {
+  padding: 0;
+  margin: 0;
+}
+
+*,
+*:before,
+*:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+:focus,
+:active {
+  outline: none;
+}
+
+a:focus,
+a:active {
+  outline: none;
+}
+
+nav,
+footer,
+header,
+aside {
+  display: block;
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  font-size: 100%;
+  line-height: 1;
+  font-size: 14px;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+input,
+button,
+textarea {
+  font-family: inherit;
+  border: none;
+}
+
+input::-ms-clear {
+  display: none;
+}
+
+button {
+  cursor: pointer;
+}
+
+button::-moz-focus-inner {
+  padding: 0;
+  border: 0;
+}
+
+a,
+a:visited {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+ul li {
+  list-style: none;
+}
+
+img {
+  vertical-align: top;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: inherit;
+  font-weight: inherit;
+}
+/*!******************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/postcss-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!../dependencies.css ***!
+  \******************************************************************************************************************************************************/
+/* @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap'); */
+body.dark-theme {
+  --color-window: #0f0f0f;
+  --color-window-70: rgba(15, 15, 15, .7);
+  --color-bg: hsl(0, 0%, 13%); /*#202020*/
+  --color-bg-70: hsla(0, 0%, 13%, .7); /*#202020*/
+  --color-content-100: #D0D0D2;
+  --color-content-70: rgba(208, 208, 210, .7);
+  --color-content-50: rgba(208, 208, 210, .5);
+  --color-bg-fly: rgba(255, 255, 255, .2);
+  --color-shodow: rgba(208, 208, 210, .5);
+  --color-link: hsl(210, 50%, 70%);
+  --color-link-hover: hsl(210, 70%, 70%);
+  --color-link-visited: hsl(240, 70%, 70%);
+  --color-request-send: rgb(46, 108, 215);
+  --coo: #80808080;
+}
+
+body {
+  font-family: "Open Sans", sans-serif;
+  --color-window: #e3e3e3;
+  --color-window-70: rgba(227, 227, 227, .7);
+  --color-bg: #FFF;
+  --color-bg-70: hsla(0, 0%, 100%, .7);
+  --color-content-100: #2B2B2B;
+  --color-content-70: rgba(43, 43, 43, .7);
+  --color-content-50: rgba(43, 43, 43, .5);
+  --color-bg-fly: rgba(0, 0, 0, .2);
+  --color-shodow: rgba(0, 0, 0, .5);
+  --animation-timing-standart: cubic-bezier(0.075, 0.82, 0.165, 1);
+  --color-link: hsl(210, 50%, 50%);
+  --color-link-hover: hsl(210, 100%, 50%);
+  --color-link-visited: hsl(240, 70%, 70%);
+  --color-request-send: #4b87ff;
+  --color-request-send: #ffaa00;
+}
+
+body {
+  background: var(--color-window);
+  transition: background 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
+  height: 100vh;
+  width: 100vw;
+  margin: 0;
+  display: flex;
+  align-items: stretch;
+}
+
+button.change-theme {
+  position: absolute;
+  right: 30px;
+  top: 30px;
+  width: 50px;
+  height: 50px;
+  border-radius: 100px;
+  background: var(--color-bg);
+  color: var(--color-content-100);
+  transition: background, color 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+#root {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* #frame {
+    background-color: orangered;
+    display: flex;
+    flex-direction: column;
+} */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.3) rgba(0, 0, 0, 0.1);
+}
+
+*::-webkit-scrollbar {
+  width: 0.3rem;
+  height: 0.3rem;
+}
+
+*::-webkit-scrollbar-track {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+}
+/*!*****************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/postcss-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./widget/Link.sass ***!
+  \*****************************************************************************************************************************************************/
+.link-custom {
+  font-size: 1em;
+  font-weight: bold;
+  color: var(--color-link);
+  padding: 0 0.3em;
+  border-bottom: 1px dashed transparent;
+  transition: color 0.2s linear;
+}
+.link-custom:hover {
+  color: var(--color-link-hover);
+  border-bottom-color: var(--color-link-hover);
+  transition: all 0.2s linear;
+}
+.link-custom span {
+  position: static;
+}
+
+.link-custom-hint {
+  position: absolute;
+  overflow: hidden;
+  margin: 0.5em;
+  max-height: 300px;
+  max-width: 300px;
+  background: var(--color-bg);
+  color: var(--color-content-100);
+  font-size: normal;
+  border-radius: 0.5em;
+  border: 2px dashed var(--color-content-50);
+  box-shadow: 0px 0px 4px var(--color-shodow);
+  display: flex;
+}
+.link-custom-hint__container {
+  overflow: auto;
+  margin: 2em 1em 2em 2em;
+  padding: 0 1em 0 0;
+}
+.link-custom-hint__title {
+  font-weight: bold;
+  font-size: 1.3em;
+  padding: 0.5em 0;
+}

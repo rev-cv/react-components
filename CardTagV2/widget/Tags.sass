@@ -1,0 +1,160 @@
+// changed 2023-04-15
+$gap: .4em
+
+.tag-container
+    // контейнер в котором всегда располагается карточки тегов
+    font-size: 1em
+
+    display: flex
+    flex-direction: column
+    // align-items: center
+    
+    user-select: none
+
+    &__tag-list
+        display: grid
+        grid-template-columns: repeat(auto-fit, 20em)
+        // grid-template-rows: 2.2em
+        grid-auto-rows: 4em
+        grid-auto-flow: dense
+
+        grid-gap: $gap
+        padding: $gap
+
+        align-items: stretch
+
+        overflow-y: scroll
+
+
+    &__bar
+        // grid-column: 1 / -1
+        background: transparent
+        margin: .5em 0
+        border-radius: .4em
+
+        display: flex
+        align-items: center
+        justify-content: space-between
+        color: var(--color-content-100)
+
+        &__bread-crumbs
+            display: flex
+            align-items: center
+            flex-wrap: wrap
+            border-radius: .4em
+
+            &__message
+                margin: .5em
+
+            &__btn-home
+                width: 2em
+                height: 2em
+                margin: .5em
+
+            &__btn-bread
+                height: 2em
+                margin: .5em
+
+                &:first-child > svg 
+                    border-radius: 50%
+                    box-shadow: 0 0 10px var(--color-request-send)
+
+$border-radius: 1.4em
+
+.card-tag
+    // стиль обычной карточки (не зафиксированной, не развернутой)
+    font-size: 1em
+    background: var(--color-bg)
+    transition: background 2s var(--animation-timing-standart)
+
+    
+    border-radius: $border-radius
+    // border: .5em solid transparent
+
+    // box-shadow: 0 0  3px var(--color-content-50)
+    
+    display: flex
+
+    cursor: pointer
+
+    overflow: hidden
+
+    &:hover
+        box-shadow: 0 0  3px var(--color-request-send)
+
+    &__area
+        flex-grow: 1
+        border-radius: $border-radius
+        transition: transform 1s var(--animation-timing-standart)
+        background: var(--color-bg)
+        position: relative
+
+        display: flex
+        justify-content: center
+        align-items: center
+
+        overflow: hidden
+
+        &__cover
+            position: absolute
+            top: 0
+            bottom: 0
+            right: 0
+            left: 0
+            z-index: 2
+
+            opacity: .4
+
+        &__content
+            flex-grow: 1
+            display: flex
+            align-items: center
+            justify-content: space-between
+            padding: 1em
+            z-index: 5
+
+            &__btn-expand, &__btn-ultra-expand, &__btn-expand-lev-2
+                min-width: 3em
+                min-height: 3em
+                margin-left: 1em
+                background: var(--color-bg-70)
+
+            &__tag
+                color: var(--color-content-100)
+                text-shadow: 0 0 2px var(--color-bg)
+                
+                padding: .6em
+                font-weight: 600
+                line-height: 1.2em
+
+                border-radius: calc($border-radius / 2)
+
+                flex-grow: 1
+
+                text-align: center
+
+                display: flex
+                align-items: center
+
+                svg
+                    width: .5em
+                    height: .5em
+                    margin-right: .5em
+
+                    border-radius: 50%
+                    box-shadow: 0 0 10px var(--color-request-send)
+
+    
+
+
+.tag-fix
+    // стиль зафиксированной карточки
+    background: var(--color-request-send)
+
+    .card-tag
+        background: var(--color-request-send)
+
+    .card-tag__area
+        transform: scale(.95)
+        background: var(--color-bg)
+  

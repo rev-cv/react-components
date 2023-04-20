@@ -1,0 +1,16 @@
+ 
+Задачи для Search:
+
+Задачи для SearchType:
+  Выпадающее меню выбора того что ищется
+    - search - все
+    - notes
+    - articles
+    - taxons
+    - collections
+    - drugs
+    - fertilizers
+    - plants
+    - recipes
+    - surveys
+    - users

@@ -1,0 +1,55 @@
+$transition-time: .2s
+    
+.link-custom
+    font-size: 1em
+    font-weight: bold
+    color: var(--color-link)
+
+    padding: 0 .3em
+
+    border-bottom: 1px dashed transparent
+
+    transition: color $transition-time linear
+
+    &:hover
+        color: var(--color-link-hover)
+        border-bottom-color: var(--color-link-hover)
+        transition: all $transition-time linear
+
+    // &:visited
+    //     color: var(--color-link-visited)
+    //     border-bottom-color: var(--color-link-visited)
+    //     transition: all $transition-time linear
+
+    span 
+        position: static
+
+.link-custom-hint
+    position: absolute
+    overflow: hidden
+
+    margin: .5em
+
+    max-height: 300px
+    max-width: 300px
+
+    background: var(--color-bg)
+    color: var(--color-content-100)
+    font-size: normal
+
+    border-radius: .5em
+    border: 2px dashed var(--color-content-50)
+
+    box-shadow: 0px 0px 4px var(--color-shodow)
+
+    display: flex
+
+    &__container
+        overflow: auto
+        margin: 2em 1em 2em 2em
+        padding: 0 1em 0 0
+
+    &__title
+        font-weight: bold
+        font-size: 1.3em
+        padding: .5em 0
