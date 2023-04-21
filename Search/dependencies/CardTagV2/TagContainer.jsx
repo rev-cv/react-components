@@ -184,7 +184,10 @@ export default ({
                         <Button
                             className="tag-container__bar__bread-crumbs__btn-bread"
                             icon="IcoClose"
-                            onBtnClick={e => updateFixedTags([])}
+                            onBtnClick={e => {
+                                updateFixedTags([]);
+                                returnTagsFixed([])
+                            }}
                         >
                         </Button>
 

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { 
     type_of_search, 
     show_filter_btns_for 
@@ -56,38 +56,6 @@ export default () => {
     const [tabs, updateVisibleTabs] = useState(getVisibleTabs("find_in"))
     // ↑ так же какие вообще вкладки имеются на SearchProperties?
 
-    
-
-    /*
-
-    ОПИСАНИЕ ПОСЛЕДОВАТЕЛЬНОСТИ ПРИКРЕПЛЕНИЯ ФИЛЬТРОВ
-    
-    Фильтры есть трех типов:
-    - период актуальности
-    - тег (для статей, заметок и коллекций)
-    - фильтр (для растений)
-    
-    Для каждого из этих трех типов фильтров существует отдельный массив
-    в котором отображаются добавленные фильтры:
-    - attachedActuals
-    - attachedTags
-    - attachedPlantFilters
-
-    При таком подходе невозможно сделать так, чтобы на панели поиска
-    добавленные фильтры отображали в порядке их добавления. Однако, 
-    в каждом массиве последний элемент, является последним добавленным элементом.
-
-    Создать массив, который будет содержать информацию необходимую
-    только для отрисовки добавленных фильтров — attachedAllFiltes.
-
-    При обновлении одного из массивов (attachedActuals, attachedTags, attachedPlantFilters):
-    1. если последний элемент обновленного массива уже пристуствует в attachedAllFiltes — удалить
-    2. добавить в attachedAllFiltes последний элемент обновленного массива
-    3. убирать все элементы нужного типа, которых нет в обновленном массиве 
-    (в обновленном массиве на самом деле могло произойти не добавление элемента, а удаление)
-
-    */
-
     // ↓ какие временные метки актуальности добавлены?
     const [attachedActuals, setAttachActuals] = useState([])
 
@@ -98,19 +66,113 @@ export default () => {
     const [attachedTags, setTags] = useState([])
 
     // ↓ список отображенных на панеле фильтров (все типы)
-    const attachedAllFiltes = []
-    // TODO реализовать отображение добавленных фильтров на Search
+    const [attachedVisibleFiltes, setVisibleFiltes] = useState([])
 
+
+    const updateVisibleFilters = (initialized = false, filterDelete = 0) => {
+        // функция управления визуализации на Search добавленный фильтров
+
+        if (initialized === false){
+            // initialized == false — инициализация на удаление filterDelete
+
+        } else {
+
+            let isSomething = false
+            if (initialized === "tag" & attachedTags.length > 0) {
+                isSomething = true
+            } else if (initialized === "plant_filter" & attachedPlantFilters.length > 0) {
+                isSomething = true
+            } else if (initialized === "actual_date" & attachedActuals.length > 0) {
+                isSomething = true
+            }
+
+            // STEP 1: удалить из attachedVisibleFiltes уже удаленные фильтры
+
+            if (isSomething) {
+
+                const elemWillDelete = []
+
+                attachedVisibleFiltes.forEach( (x, index) => {
+                    // нужный элемент все еще существует в массиве?
+                    switch (initialized) {
+                        case "tag":
+                            if (attachedTags.find(e => x.id_elem === e.id) === undefined){
+                                elemWillDelete.push(index)
+                            } 
+                            break
+                        case "plant_filter":
+                            break
+                        case "actual_date":
+                            break
+                    }
+                })
+
+                // STEP 2: добавление отсутствующих фильтров
+
+                const addingFilter = []
+
+                switch (initialized) {
+                    case "tag":
+                        const tuy = []
+
+                        attachedVisibleFiltes.forEach(x => {
+                            if (x.type === "tag") tuy.push(x.id_elem)
+                        })
+
+                        attachedTags.forEach( x => {
+                            if (!tuy.includes(x.id)){
+                                addingFilter.push({
+                                    type: "tag",
+                                    text: x.tag,
+                                    id_elem: x.id,
+                                    icon: "IcoTags"
+                                })
+                            }
+                        })
+
+                        break
+                    case "plant_filter":
+
+                        break
+                    case "actual_date":
+
+                        break
+                }
+                
+                setVisibleFiltes([
+                    ...attachedVisibleFiltes.filter(
+                        (item, index) => !elemWillDelete.includes(index)
+                    ),
+                    ...addingFilter
+                ])
+
+            } else {
+                // если не найдено последнего эелемента в массиве-инициаторе
+                // то значит массив пуст и все целевые фильтры для этого массива
+                // должны быть удалены
+                setVisibleFiltes([
+                    ...attachedVisibleFiltes.filter(
+                        item => item.type === "plant_filter"
+                    )
+                ])
+            }
+        }
+    }
+
+    console.log(attachedVisibleFiltes)
+
+    useEffect(() => updateVisibleFilters("tag"), [attachedTags])
+    useEffect(() => updateVisibleFilters("plant_filter"), [attachedPlantFilters])
+    useEffect(() => updateVisibleFilters("actual_date"), [attachedActuals])
 
     const addFilters = () => {
-        const filters = [
-            <Button icon={"IcoPeriods"} key='filter__11'>text</Button>,
-            // <Button icon={"IcoPeriods"}>text</Button>,
-            // <Button icon={"IcoPeriods"}>text</Button>,
-            // <Button icon={"IcoPeriods"}>text</Button>,
-            // <Button icon={"IcoPeriods"}>text</Button>,
-            // <Button icon={"IcoPeriods"}>text</Button>,
-        ]
+        const filters = attachedVisibleFiltes.map( elem => (
+            <Button 
+                icon={elem.icon} 
+                key={`filter__${elem.type}__${elem.id_elem}`}
+                >{elem.text}
+            </Button>
+        ))
         return filters.length === 0 ? null : filters
     }
 

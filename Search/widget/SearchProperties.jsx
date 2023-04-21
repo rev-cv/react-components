@@ -222,7 +222,7 @@ export default ({
 
                 !tabs.tags ? null :
                     <div className="search-properties__tags">
-                        <TagContainer />
+                        <TagContainer returnTagsFixed={result => setTags(result)}/>
                     </div>
             }
 
