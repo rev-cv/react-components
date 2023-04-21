@@ -1,8 +1,8 @@
-// changed 2023-04-15
+// changed 2023-04-19
 import React, { useRef, useState } from "react";
-import './Button.sass';
-import Anim from "./AnimationBubble.jsx";
-import IcoPack from "../../../IcoPack/IcoPack.jsx";
+import 'Button.sass';
+import Anim from "AnimationBubble.jsx";
+import IcoPack from "IcoPack.jsx";
 
 export default ({
     icon,           // иконка svg или image
@@ -35,9 +35,9 @@ export default ({
         addNewBubble([
             ...bubbles,
             [
-                +new Date(),
-                event.clientX - rect.x,
-                event.clientY - rect.y,
+                +new Date(), 
+                event.clientX - rect.x, 
+                event.clientY - rect.y, 
                 rect.width * 1.3
             ]
         ])
@@ -95,7 +95,7 @@ export default ({
         // Warning: validateDOMNesting
         // https://stackoverflow.com/questions/47282998
     }
-
+    
     return (
         <button
             className={classes}

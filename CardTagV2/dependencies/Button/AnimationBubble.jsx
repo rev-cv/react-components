@@ -1,5 +1,5 @@
 import React from "react";
-import './AnimationBubble.css';
+import 'AnimationBubble.css';
 
 export default ({ x, y, w }) => {
     if (x === 0) return null

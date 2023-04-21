@@ -1,13 +1,6 @@
-"""
-Не получается из одного компонента импортировать другой компонент. Видно каким-то образом разные сборки webpack мешают друг-дружке. По этой причине было принято решение сделать «велосипед» соотносящий зависимости компонентов друг от дружки.
-
-1. Сканируются каталоги верхнего уровня на содержание подкаталого widget. Если такой каталог есть, то имя данного каталога становится отслеживающим виджетом, а файлы в "./Widget/widget/*" добавляются на отслеживание.
-2. Сканируются каталоги верхнего уровня на содержание подкаталога dependencies. Внутри каталога dependencies находятся каталоги с названием каталогов, которые уже были добавлены на ослеживание.
-3. Найти файлы одного виджета, которые различаются между себой
-""" 
-
 from pathlib import Path
 from datetime import datetime
+from fuzzywuzzy import fuzz
 
 current = Path.cwd()
 # listdir = [x for x in list(current.iterdir()) if x.is_dir()]
@@ -16,7 +9,8 @@ listdir = list(current.iterdir())
 widgets = dict()
 original_files = list()
 
-# 1
+
+# STEP 1: поиск каталогов с виджетами
 for directory in listdir:
     w = Path(directory, 'widget')
     if directory.is_dir() and w.is_dir():
@@ -24,7 +18,8 @@ for directory in listdir:
         for f in [x for x in w.iterdir() if x.is_file()]:
             widgets[directory.name][f.name] = [f, ]
 
-# 2
+
+# STEP 2: поиск в каталогах с виджетами зависимостей содержащих каталоги с вижетами
 for directory in listdir:
     w = Path(directory, 'dependencies')
     if directory.is_dir() and w.is_dir():
@@ -46,43 +41,46 @@ for directory in listdir:
 # ↓ файлы между которыми обнаружено несовпадение
 edited_widgets = dict()
 
-# 3
+# STEP 3: выявление отличающихся групп файлов во всех каталогах с вижетами
 for widget in widgets.keys():
-    is_all_true = True
+    list_output = list()
 
     for widget_files in widgets[widget].keys():
+        list_input = sorted(widgets[widget][widget_files], key = lambda x: x.stat().st_mtime)
 
         def ff (length_arr, index_current, last_open=False):
-            global is_all_true
-
-            def ff2(string):
-                result = True
-
-                for x in original_files:
-                    if "import" in string:
-                        if x in string:
-                            result = False
-                return result
-
-            text = "\n".join([
-                x
-                for x in widgets[widget][widget_files][index_current].read_text().split("\n")
-                if ff2(x)
-            ])
+            current = list_input[index_current]
+            text = current.read_text()
 
             if last_open is not False:
-                if text != last_open:
-                    is_all_true = False
-            
+                list_output.append([
+                    current,
+                    fuzz.ratio(last_open, text),
+                    datetime.fromtimestamp( current.stat().st_mtime ).strftime('%Y-%m-%d %H:%M')
+                ])
+            else:
+                # первый файл берется за основу
+                list_output.append([
+                    current, 
+                    100, 
+                    datetime.fromtimestamp( current.stat().st_mtime ).strftime('%Y-%m-%d %H:%M')
+                ])
+
             if index_current + 1 < length_arr:
                 ff(length_arr, index_current + 1, text)
-        ff(len(widgets[widget][widget_files]), 0)
 
+        ff(len(list_input), 0)
+
+    is_all_true = True
+    for x in list_output:
+        if x[1] != 100:
+            is_all_true = False
 
     if not is_all_true:
-        print(widget)
-        for x in widgets[widget][widget_files]:
-            print(f'    {x.relative_to(current)}')
+        edited_widgets[widget] = list_output
 
 
-# print(original_files)
+for x in edited_widgets:
+    print(x)
+    for y in edited_widgets[x]:
+        print(f'    {y[1]: >3}% {y[2]} {y[0].relative_to(current)}')

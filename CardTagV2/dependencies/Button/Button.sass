@@ -14,19 +14,17 @@
     position: relative
     overflow: hidden
 
-    color: var(--color-content-70)
-
     svg
         width: 1em
         height: 1em
         margin-left: .2em
-        opacity: .85
+        opacity: .7
 
     &__text
         color: green
         margin: .1em 1em
         flex-grow: 1
-        opacity: .85
+        opacity: .7
 
         &__t
             color: var(--color-content-100)
@@ -83,3 +81,38 @@
         transform: scale(.8)
         margin-left: 0
 
+.disable
+    cursor: default
+    background: #8080801a
+
+    .btn-standart__text__t, .btn-with-description__text__t, .btn-ico-only__text__t
+        color: #808080cc
+
+    .btn-standart__text__description, .btn-with-description__text__description, .btn-ico-only__text__description
+        color: #80808099
+
+    &:hover:before
+        opacity: 0
+
+    .btn-animation-bubble
+        background: #00000000
+
+    path, circle
+        fill: #80808099
+
+    // &::before
+    //     position: absolute
+    //     height: 8%
+    //     width: 100%
+    //     background: #f27583
+
+    //     top: calc((100% / 2) - (.2em / 2))
+    //     // left: 0
+    //     opacity: 1
+
+    //     transform: rotate(-10deg)
+
+
+.btn-tooltip
+    position: absolute
+    
