@@ -1,0 +1,104 @@
+.image-full-screen
+    position: static
+
+    &__canvas
+        background: transparent
+        
+        position: fixed
+
+        top: 0
+        left: 0
+        bottom: 0
+        right: 0
+
+        display: flex
+        flex-direction: column
+
+        background: var(--color-window-70)
+        backdrop-filter: blur(2px)
+
+        &__img
+            flex-grow: 1
+
+            animation-name: animation-picture-unfolding
+            animation-duration: .9s
+            animation-fill-mode: forwards
+            animation-timing-function: var(--animation-timing-standart)
+
+        .image-box
+            background: transparent
+
+        svg.ico-loading
+            opacity: 0
+
+        &__description
+            overflow: hidden
+
+            height: 0
+
+            padding: 0 10%
+            color: var(--color-content-100)
+            background: var(--color-window)
+            font-weight: 600
+            font-size: 1em
+            line-height: 1.5em
+
+            transition-property: padding-top, padding-bottom, height
+            transition-duration: .9s
+            transition-timing-function: var(--animation-timing-standart)
+
+            &.show
+                height: 10em
+                padding: 1em 10%
+
+        &__btn-left, &__btn-right, &__btn-close
+            position: absolute
+            border-radius: 1em
+            background: transparent
+
+            transition: backdrop-filter .2s linear
+
+            & > svg
+                width: 3em
+                height: 3em
+                border-radius: 50%
+
+                opacity: 0
+
+            &:hover
+                backdrop-filter: blur(6px)
+
+                svg
+                    opacity: 1
+                
+        &__btn-left, &__btn-right
+            width: 10%
+            top: 10%
+            bottom: 10%
+
+        &__btn-left
+            left: 0
+        
+        &__btn-right
+            right: 0
+
+        &__btn-close, &__btn-show-description
+            left: 10%
+            right: 10%
+            height: 10%
+            
+        &__btn-close
+            top: 0
+
+        &__btn-show-description
+            position: absolute
+            bottom: 0
+            height: 20%
+
+
+@keyframes animation-picture-unfolding 
+    // анимация разворота картинки на полный экран
+    from
+        transform: scale(.8)
+    to 
+        transform: scale(1)
