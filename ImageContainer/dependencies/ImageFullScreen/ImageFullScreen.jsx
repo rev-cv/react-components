@@ -4,7 +4,7 @@ import Button from "Button.jsx";
 import 'ImageFullScreen.sass';
 
 
-export default ({ listObjImgs = [{},], style = {}, index = 0, returningFunc = index => index }) => {
+export default ({ listObjImgs = [{},], index = 0, style = {}, returnFunc = index => index }) => {
 
     const [currentIndexImg, setCurrentIndexImg] = useState(index)
     const visibleImg = listObjImgs[currentIndexImg]
@@ -44,7 +44,7 @@ export default ({ listObjImgs = [{},], style = {}, index = 0, returningFunc = in
         setOffset('offset-hide')
         setTimeout(() => {
             closeWidget(false);
-            returningFunc(currentIndexImg);
+            returnFunc(currentIndexImg);
         }, 150)
     }
 

@@ -4,7 +4,7 @@ import ImageFullScreen from "ImageFullScreen.jsx";
 import 'ImageContainer.sass';
 
 
-export default ({ listObjImgs = [{},], style = {}, isFullScreen=true }) => {
+export default ({ listObjImgs = [{},], style = {}, isFullScreen = true, objectFit ='cover' }) => {
 
     const [openFullScreen, toogleFullScreen] = useState(-1)
 
@@ -17,6 +17,7 @@ export default ({ listObjImgs = [{},], style = {}, isFullScreen=true }) => {
                     className={isFullScreen ? "pointer" : undefined}
                     objImg={objImg}
                     onClickByImage={e => toogleFullScreen(indexObjImg)}
+                    objectFit={objectFit}
                 />
             ))
         }
@@ -26,7 +27,7 @@ export default ({ listObjImgs = [{},], style = {}, isFullScreen=true }) => {
                 <ImageFullScreen 
                     listObjImgs={listObjImgs} 
                     index={openFullScreen} 
-                    returningFunc={index => toogleFullScreen(-1)}
+                    returnFunc={index => toogleFullScreen(-1)}
                 />
                 : null
         }

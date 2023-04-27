@@ -1,0 +1,104 @@
+.image-slider
+    font-size: 1em
+    
+    user-select: none
+
+    border-radius: .5em
+    overflow: hidden
+
+    &__canvas
+        height: 25em
+        display: flex
+        position: relative
+
+        &__img
+            flex-grow: 1
+
+            .image-box
+                background: transparent
+
+            &__btn-left, &__btn-right
+                position: absolute
+                top: 0
+                bottom: 0
+                width: 4em
+                background: transparent
+
+                opacity: 0
+                transition: opacity .9s ease
+
+                &::before
+                    background: transparent
+
+                & > svg
+                    width: 3em
+                    height: 3em
+                    border-radius: 50%
+                    padding: .8em
+                    background: var(--color-bg)
+            
+            &__btn-left
+                left: 0
+
+            &__btn-right
+                right: 0
+            
+    &__thumbs
+        height: 3em
+
+        display: flex
+        justify-content: center
+        align-items: center
+        margin: .2em 0 
+
+        .image-box
+            width: 3em
+            margin: 0 .2em
+            cursor: pointer
+
+        .selected
+            border: 3px solid var(--color-request-send)
+        
+        .not-selected
+            transform: scale(.8)
+
+    &__description
+        font-size: .8
+        color: var(--color-content-50)
+        line-height: 1.2em
+        padding: 1em 2em
+
+        &__title
+            font-size: 1.2em
+            font-weight: bold
+            margin-bottom: .5em
+        
+        &__link
+            font-size: 1em
+            text-align: right
+            opacity: .7
+    
+.image-slider:hover
+    .image-slider__canvas__img__btn-right, .image-slider__canvas__img__btn-left
+        opacity: 1
+        transition: opacity .9s ease
+
+
+
+.offset-s-left .image-slider__canvas__img .image-box
+    animation-name: animation-picture-unfolding-left
+    animation-duration: .6s
+    animation-fill-mode: forwards
+    animation-timing-function: var(--animation-timing-standart)
+
+.offset-s-right .image-slider__canvas__img .image-box
+    animation-name: animation-picture-unfolding-right
+    animation-duration: .6s
+    animation-fill-mode: forwards
+    animation-timing-function: var(--animation-timing-standart)
+
+.offset-s-hide .image-slider__canvas__img .image-box
+    animation-name: animation-picture-unfolding-hide
+    animation-duration: .2s
+    animation-fill-mode: forwards
+    animation-timing-function: var(--animation-timing-standart)

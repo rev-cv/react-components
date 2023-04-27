@@ -1,0 +1,27 @@
+.btn-animation-bubble {
+    animation-name: animation-bubble;
+    animation-duration: 1.2s;
+    animation-fill-mode: forwards, backwards;
+    animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+
+    background: var(--color-bg-fly);
+    position: absolute;
+    border-radius: 50%
+}
+
+@keyframes animation-bubble {
+    0% {
+        transform: scale(0, 0);
+        opacity: 1;
+    }
+
+    99% {
+        transform: scale(1, 1);
+    }
+
+    100% {
+        transform: scale(0, 0);
+        visibility: hidden;
+        opacity: 0;
+    }
+}
