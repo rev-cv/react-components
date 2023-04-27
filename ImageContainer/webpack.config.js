@@ -17,6 +17,8 @@ module.exports = {
             "node_modules",
             "widget",
             "dependencies/ImageV2",
+            "dependencies/ImageFullScreen",
+            "dependencies/Button",
             "../IcoPack",
         ],
     },

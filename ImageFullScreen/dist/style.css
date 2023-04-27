@@ -141,7 +141,7 @@ body {
 
 button.change-theme {
   position: absolute;
-  right: 30px;
+  left: 30px;
   top: 30px;
   width: 50px;
   height: 50px;
@@ -386,6 +386,7 @@ button.change-theme {
   \****************************************************************************************************************************************************************/
 .image-full-screen {
   position: static;
+  user-select: none;
 }
 .image-full-screen__canvas {
   background: transparent;
@@ -401,10 +402,6 @@ button.change-theme {
 }
 .image-full-screen__canvas__img {
   flex-grow: 1;
-  animation-name: animation-picture-unfolding;
-  animation-duration: 0.9s;
-  animation-fill-mode: forwards;
-  animation-timing-function: var(--animation-timing-standart);
 }
 .image-full-screen__canvas .image-box {
   background: transparent;
@@ -424,33 +421,41 @@ button.change-theme {
   transition-property: padding-top, padding-bottom, height;
   transition-duration: 0.9s;
   transition-timing-function: var(--animation-timing-standart);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .image-full-screen__canvas__description.show {
-  height: 10em;
+  height: 15em;
   padding: 1em 10%;
 }
 .image-full-screen__canvas__btn-left, .image-full-screen__canvas__btn-right, .image-full-screen__canvas__btn-close {
   position: absolute;
   border-radius: 1em;
   background: transparent;
-  transition: backdrop-filter 0.2s linear;
+}
+.image-full-screen__canvas__btn-left::before, .image-full-screen__canvas__btn-right::before, .image-full-screen__canvas__btn-close::before {
+  background: transparent;
 }
 .image-full-screen__canvas__btn-left > svg, .image-full-screen__canvas__btn-right > svg, .image-full-screen__canvas__btn-close > svg {
-  width: 3em;
-  height: 3em;
+  width: 4em;
+  height: 4em;
   border-radius: 50%;
-  opacity: 0;
-}
-.image-full-screen__canvas__btn-left:hover, .image-full-screen__canvas__btn-right:hover, .image-full-screen__canvas__btn-close:hover {
-  backdrop-filter: blur(6px);
+  padding: 1em;
+  background: var(--color-bg);
 }
 .image-full-screen__canvas__btn-left:hover svg, .image-full-screen__canvas__btn-right:hover svg, .image-full-screen__canvas__btn-close:hover svg {
   opacity: 1;
+  transition: opacity 0.2s ease;
 }
 .image-full-screen__canvas__btn-left, .image-full-screen__canvas__btn-right {
-  width: 10%;
-  top: 10%;
-  bottom: 10%;
+  width: 6em;
+  top: 6em;
+  bottom: 6em;
+}
+.image-full-screen__canvas__btn-left > svg, .image-full-screen__canvas__btn-right > svg {
+  opacity: 0;
+  transition: opacity 0.2s ease;
 }
 .image-full-screen__canvas__btn-left {
   left: 0;
@@ -458,18 +463,59 @@ button.change-theme {
 .image-full-screen__canvas__btn-right {
   right: 0;
 }
-.image-full-screen__canvas__btn-close, .image-full-screen__canvas__btn-show-description {
-  left: 10%;
-  right: 10%;
-  height: 10%;
-}
 .image-full-screen__canvas__btn-close {
   top: 0;
+  right: 0;
+  width: 6em;
+  height: 6em;
 }
 .image-full-screen__canvas__btn-show-description {
   position: absolute;
   bottom: 0;
   height: 20%;
+  left: 6em;
+  right: 6em;
+}
+.image-full-screen__canvas__counter {
+  position: absolute;
+  top: 1em;
+  width: 5em;
+  left: calc(50% - 2.5em);
+  background: var(--color-bg-70);
+  color: var(--color-content-70);
+  padding: 0.4em 1em;
+  border-radius: 1em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.offset-center .image-full-screen__canvas__img {
+  animation-name: animation-picture-unfolding;
+  animation-duration: 0.9s;
+  animation-fill-mode: forwards;
+  animation-timing-function: var(--animation-timing-standart);
+}
+
+.offset-right .image-full-screen__canvas__img {
+  animation-name: animation-picture-unfolding-right;
+  animation-duration: 0.6s;
+  animation-fill-mode: forwards;
+  animation-timing-function: var(--animation-timing-standart);
+}
+
+.offset-left .image-full-screen__canvas__img {
+  animation-name: animation-picture-unfolding-left;
+  animation-duration: 0.6s;
+  animation-fill-mode: forwards;
+  animation-timing-function: var(--animation-timing-standart);
+}
+
+.offset-hide .image-full-screen__canvas__img {
+  animation-name: animation-picture-unfolding-hide;
+  animation-duration: 0.2s;
+  animation-fill-mode: forwards;
+  animation-timing-function: var(--animation-timing-standart);
 }
 
 @keyframes animation-picture-unfolding {
@@ -478,5 +524,35 @@ button.change-theme {
   }
   to {
     transform: scale(1);
+  }
+}
+@keyframes animation-picture-unfolding-right {
+  from {
+    transform: translateX(-20%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+@keyframes animation-picture-unfolding-left {
+  from {
+    transform: translateX(20%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+@keyframes animation-picture-unfolding-hide {
+  from {
+    transform: scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: scale(0.8);
+    opacity: 0;
   }
 }

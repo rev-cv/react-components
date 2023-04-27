@@ -16,7 +16,7 @@ const AppReact = () => {
     return <>
         <div id="frame">
 
-            <ImageFullScreen listObjImgs={[objImg_2, ]} />
+            <ImageFullScreen listObjImgs={[objImg_2, objImg_1, ]} />
             
         </div>
 
