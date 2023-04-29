@@ -141,7 +141,7 @@ body {
 
 button.change-theme {
   position: absolute;
-  right: 30px;
+  left: 30px;
   top: 30px;
   width: 50px;
   height: 50px;

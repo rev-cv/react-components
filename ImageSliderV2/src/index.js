@@ -3,7 +3,10 @@ import ReactDOM from 'react-dom/client';
 import '../../reset.css';
 import '../../dependencies.css';
 import ImageSlider from '../widget/ImageSlider.jsx';
-import { objImg_1, objImg_2, objImg_3 } from "./test-image-list";
+
+
+import { objImg_1, objImg_2, objImg_3 } from "test-images.js";
+
 
 const e = React.createElement;
 const AppReact = () => {
@@ -13,10 +16,11 @@ const AppReact = () => {
         <div id="frame" style={{
             width: '100%',
             display: 'flex',
-            justifyContent: 'center',
+            justifyContent: 'flex-start',
             alignItems: 'center',
             flexDirection: 'column',
             flexGrow: 1,
+            paddingTop: '2em',
         }}>
             <div style={{ width: '50em' }}>
 

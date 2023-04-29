@@ -1,25 +1,20 @@
 import React, { useState, useEffect } from "react";
-import { 
-    type_of_search, 
-    search_properties_pages, 
-    periods_of_actual 
-} from "displayed_data.js";
 import Button from "Button.jsx";
 import ButtonContainer from "ButtonContainer.jsx";
 import TagContainer from "TagContainer.jsx";
 import 'SearchProperties.sass';
 
-/*
 
-Виджет создает выпадающее меню в строке поиска.
-Значение выбранного меню влияет на посылаемой в итоге запрос.
+import { search_types } from "test-search-types.js";
+import { search_page_btns } from "test-serach-page-btns.js";
+import { periods_of_actual } from "test-actuals.js";
 
-*/
 
 Array.prototype.arrayIncluded = function (a) {
     var hash = this.reduce(function (acc, i) { acc[i] = true; return acc; }, {});
     return a.every(function (i) { return i in hash; });
 };
+
 
 export default ({ 
         isOpenSP,           // открытали страница?
@@ -82,7 +77,7 @@ export default ({
 
 
     const setMenuSearchProps = () => {
-        return search_properties_pages.map((item, index, array) => {
+        return search_page_btns.map((item, index, array) => {
             const isActive = Object.keys(tabs).includes(item.type)
             const cl_for_it = []
             if (!isActive) cl_for_it.push("disable")
@@ -124,7 +119,7 @@ export default ({
                     <div
                         className="search-properties__when__title"
                         key={`search-props-when-search-title${key}`}
-                        >Выбрать актуальный месяц
+                        >Выбрать актуальные месяцы
                     </div>
                 )
             }
@@ -182,7 +177,7 @@ export default ({
 
                     <div className="search-properties__what"> 
                         {
-                            Object.values(type_of_search).map((item, index, array) => (
+                            Object.values(search_types).map((item, index, array) => (
 
                                 <Button
 

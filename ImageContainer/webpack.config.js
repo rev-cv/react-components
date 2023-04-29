@@ -20,6 +20,7 @@ module.exports = {
             "dependencies/ImageFullScreen",
             "dependencies/Button",
             "../IcoPack",
+            "../test-api",
         ],
     },
     module: {

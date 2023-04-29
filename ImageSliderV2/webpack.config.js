@@ -21,6 +21,7 @@ module.exports = {
             "dependencies/ImageFullScreen",
             "dependencies/Link", 
             "../IcoPack",
+            "../test-api",
         ],
     }, 
     module: {

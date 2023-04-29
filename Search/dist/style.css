@@ -672,9 +672,6 @@ button.change-theme {
   color: var(--color-content-70);
   box-shadow: 0px 0px 2px var(--color-shodow);
 }
-.search-panel:hover {
-  box-shadow: 0px 0px 6px var(--color-shodow);
-}
 .search-panel__what-search {
   grid-column: 1/2;
   justify-self: start;

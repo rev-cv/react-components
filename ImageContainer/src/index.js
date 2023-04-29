@@ -3,17 +3,10 @@ import ReactDOM from 'react-dom/client';
 import '../../reset.css';
 import '../../dependencies.css';
 import ImageContainer from '../widget/ImageContainer.jsx';
-import { objImg_1, objImg_2 } from "./test-image-list";
 
-const objImg_3 = { 
-    ...objImg_1, 
-    src:"https://flowertimes.ru/wp-content/uploads/2017/03/hosta-posadka.jpg"
-}
 
-const objImg_4 = {
-    ...objImg_1,
-    src: "https://flowertimes.ru/wp-content/uploads/2017/03/hosta-uhod.jpg"
-}
+import { objImg_1, objImg_2, objImg_3, objImg_4 } from "test-images.js";
+
 
 const e = React.createElement;
 const AppReact = () => {

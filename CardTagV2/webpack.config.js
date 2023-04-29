@@ -17,7 +17,8 @@ module.exports = {
             "node_modules",
             "./dependencies/ImageV2",
             "./dependencies/Button",
-            "../IcoPack"
+            "../IcoPack",
+            "../test-api",
         ],
     },
     module: {

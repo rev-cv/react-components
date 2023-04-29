@@ -17,6 +17,7 @@ module.exports = {
             "node_modules",
             "widget",
             "../IcoPack",
+            "../test-api",
         ],
     },
     module: {

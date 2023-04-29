@@ -11,13 +11,9 @@ const example_objImg = {
     title: "У картинки может быть заголовок",
     description: "У картинки может быть описание",
     link: {
-        "anid": "4g5t-7ert-5478-jhff-0000",
-        "type_link": "url",
-        "link": "https://ru.wikipedia.org/wiki/",
-        "is_partner": false,
-        "title": "Wikipedia",
-        "message": "Вступив в 1685 году на молдавский престол, Константин Кантемир должен был по обычаям того времени послать в Константинополь заложником одного из своих сыновей, сначала старшего — Антиоха, а в 1687 г.",
-        "cover": {} // objImg
+        title: "У картинки может быть прикрепленная ссылка",
+        description: "У ссылки может быть описание",
+        url: "адрес/ссылки.html"
     }
 }
 
@@ -33,22 +29,19 @@ export const objImg_1 = {
     title: "Картинка №245",
     description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
     link: {
-        "anid": "4g5t-7ert-5478-jhff-0000",
-        "type_link": "url",
-        "link": "https://ru.wikipedia.org/wiki/",
-        "is_partner": false,
-        "title": "Wikipedia",
-        "message": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-        "cover": {} // objImg
+        title: "У картинки может быть прикрепленная ссылка",
+        description: "У ссылки может быть описание",
+        url: "адрес/ссылки.html"
     }
 }
 
-export const objImg_2 = { 
-    ...objImg_1, 
+export const objImg_2 = {
+    ...objImg_1,
     src: "https://planetaflora.ru/images/2022/04/01/golubie-cvety.jpg",
     description: "Вступив в 1685 году на молдавский престол, Константин Кантемир должен был по обычаям того времени послать в Константинополь заложником одного из своих сыновей, сначала старшего — Антиоха, а в 1687 г."
 
 }
+
 
 export const objImg_3 = {
     path: null,
@@ -70,4 +63,10 @@ export const objImg_3 = {
         "message": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
         "cover": {} // objImg
     }
+}
+
+
+export const objImg_4 = {
+    ...objImg_1,
+    src: "https://flowertimes.ru/wp-content/uploads/2017/03/hosta-uhod.jpg"
 }

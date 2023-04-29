@@ -19,7 +19,8 @@ module.exports = {
             "dependencies/ImageV2",
             "dependencies/Button",
             "dependencies/CardTagV2",
-            "../IcoPack"
+            "../IcoPack",
+            "../test-api",
         ],
     },
     module: {

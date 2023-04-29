@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import Button from "Button.jsx";
 import ButtonContainer from "ButtonContainer.jsx";
-import { tags } from "./test-tags.js";
+import { tags } from "test-all-tags.js";
 import Tag from './Tag.jsx';
 
 

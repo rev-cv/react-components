@@ -1,21 +1,9 @@
 import React, { useState, useRef, useEffect } from "react";
-import { 
-    type_of_search, 
-    show_filter_btns_for 
-} from "displayed_data.js";
 import Button from "Button.jsx";
-// import Cucumber from "../dependencies/Button/Cucumber.jsx";
 import SearchProperties from "SearchProperties.jsx";
 import 'Search.sass';
 
-/*
-
-Виджет занимается генерацией запросов к серверу.
-Виджет отображает запрос к серверу. Данные берутся из адресной строки.
-
-Виджет не управляется извне, не получает никаких props.
-
-*/
+import { search_types, show_filter_btns_for } from "test-search-types.js";
 
 
 export default () => {
@@ -227,7 +215,7 @@ export default () => {
                 {/* ЧТО ИСКАТЬ? КАКИЕ ОБЪЕКТЫ ИСКАТЬ? */}
                 <Button
                     className="search-panel__what-search"
-                    icon={type_of_search[typeOfSearch].icon}
+                    icon={search_types[typeOfSearch].icon}
                     onBtnClick={e => toogleSearchProperties("find_in")}
                 />
                 

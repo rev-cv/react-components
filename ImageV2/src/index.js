@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import '../../reset.css';
 import '../../dependencies.css';
 import Image from '../widget/Image.jsx';
-import { objImg_1, objImg_2 } from "./test-image-list";
+import { objImg_1, objImg_2 } from "test-images.js";
 
 const e = React.createElement;
 const AppReact = () => {
