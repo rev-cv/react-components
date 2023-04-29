@@ -44,7 +44,7 @@ const Tag = ({
                     !tagObj.cover ? null :
                         <Image 
                             objImg={tagObj.cover} 
-                            classList={["card-tag__area__cover"]} 
+                            className='card-tag__area__cover'
                             onClickByImage={onClickByTag}
                         />
                 }

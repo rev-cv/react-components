@@ -16,7 +16,7 @@ module.exports = {
             path.resolve(__dirname, "src"),
             "node_modules",
             "widget",
-            "dependencies/Image",
+            "dependencies/ImageV2",
             "dependencies/Button",
             "dependencies/CardTagV2",
             "../IcoPack"
