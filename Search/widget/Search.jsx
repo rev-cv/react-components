@@ -1,26 +1,38 @@
 import React, { useState, useRef, useEffect } from "react";
 import Button from "Button.jsx";
 import SearchProperties from "SearchProperties.jsx";
+import { calcFilters } from "calc-of-all-added-filters.js";
 import 'Search.sass';
+
 
 import { search_types, show_filter_btns_for } from "test-search-types.js";
 
 
 export default () => {
 
+    const refSearchPanel = useRef()
+
     // ↓ Какой тип информации ищется?
     const [typeOfSearch, setTypeOfSearch] = useState("notes")
 
-    // ↓ открыта или закрыта SearchProperties?
+    // ↓ открыт или закрыт SearchProperties?
     const [isOpenSP, toogleOpenSP] = useState(false)
 
-    const refSearchPanel = useRef()
 
     const getVisibleTabs = (tab, tos = typeOfSearch) => {
-        // tab — вкладка, которая должна быть открыта
-        // tos — иногда typeOfSearch и tabs должны меняться одновременно
-        // если изменить typeOfSearch, а после него сразу tabs,
-        // то значение typeOfSearch не успевается измениться
+        /*
+            функция управляет вкладками в SearchProperties
+            - выбор открытой вкладки
+            - активация / деактивация вкладки
+        */
+
+        /*
+            tab — вкладка, которая должна быть открыта
+            tos — иногда typeOfSearch и tabs должны меняться одновременно ↲
+            если изменить typeOfSearch, а после него сразу tabs, ↲
+            то значение typeOfSearch не успевается измениться.
+        */
+
         const result = {}
 
         result.find_in = tab === "find_in" ? true : false
@@ -40,9 +52,9 @@ export default () => {
         return result
     }
 
+
     // ↓ какая вкладка открыта на SearchProperties?
     const [tabs, updateVisibleTabs] = useState(getVisibleTabs("find_in"))
-    // ↑ так же какие вообще вкладки имеются на SearchProperties?
 
     // ↓ какие временные метки актуальности добавлены?
     const [attachedActuals, setAttachActuals] = useState([])
@@ -57,115 +69,22 @@ export default () => {
     const [attachedVisibleFiltes, setVisibleFiltes] = useState([])
 
 
-    const updateVisibleFilters = (initialized = false, filterDelete = 0) => {
-        // функция управления визуализации на Search добавленный фильтров
-
-        if (initialized === false){
-            // initialized == false — инициализация на удаление filterDelete
-
-        } else {
-
-            let isSomething = false
-            if (initialized === "tag" & attachedTags.length > 0) {
-                isSomething = true
-            } else if (initialized === "plant_filter" & attachedPlantFilters.length > 0) {
-                isSomething = true
-            } else if (initialized === "actual_date" & attachedActuals.length > 0) {
-                isSomething = true
-            }
-
-            // STEP 1: удалить из attachedVisibleFiltes уже удаленные фильтры
-
-            if (isSomething) {
-
-                const elemWillDelete = []
-
-                attachedVisibleFiltes.forEach( (x, index) => {
-                    // нужный элемент все еще существует в массиве?
-                    switch (initialized) {
-                        case "tag":
-                            if (attachedTags.find(e => x.id_elem === e.id) === undefined){
-                                elemWillDelete.push(index)
-                            } 
-                            break
-                        case "plant_filter":
-                            break
-                        case "actual_date":
-                            break
-                    }
-                })
-
-                // STEP 2: добавление отсутствующих фильтров
-
-                const addingFilter = []
-
-                switch (initialized) {
-                    case "tag":
-                        const tuy = []
-
-                        attachedVisibleFiltes.forEach(x => {
-                            if (x.type === "tag") tuy.push(x.id_elem)
-                        })
-
-                        attachedTags.forEach( x => {
-                            if (!tuy.includes(x.id)){
-                                addingFilter.push({
-                                    type: "tag",
-                                    text: x.tag,
-                                    id_elem: x.id,
-                                    icon: "IcoTags"
-                                })
-                            }
-                        })
-
-                        break
-                    case "plant_filter":
-
-                        break
-                    case "actual_date":
-
-                        break
-                }
-                
-                setVisibleFiltes([
-                    ...attachedVisibleFiltes.filter(
-                        (item, index) => !elemWillDelete.includes(index)
-                    ),
-                    ...addingFilter
-                ])
-
-            } else {
-                // если не найдено последнего эелемента в массиве-инициаторе
-                // то значит массив пуст и все целевые фильтры для этого массива
-                // должны быть удалены
-                setVisibleFiltes([
-                    ...attachedVisibleFiltes.filter(
-                        item => item.type === "plant_filter"
-                    )
-                ])
-            }
-        }
+    const p = {
+        initialized: "plant_filter",
+        attachedTags,
+        attachedPlantFilters,
+        attachedActuals,
+        attachedVisibleFiltes,
+        setVisibleFiltes,
     }
+    useEffect(() => calcFilters(p), [attachedPlantFilters])
+    useEffect(() => calcFilters({ ...p, initialized: 'tag' }), [attachedTags])
+    useEffect(() => calcFilters({ ...p, initialized: 'actual_date' }), [attachedActuals])
 
-    console.log(attachedVisibleFiltes)
-
-    useEffect(() => updateVisibleFilters("tag"), [attachedTags])
-    useEffect(() => updateVisibleFilters("plant_filter"), [attachedPlantFilters])
-    useEffect(() => updateVisibleFilters("actual_date"), [attachedActuals])
-
-    const addFilters = () => {
-        const filters = attachedVisibleFiltes.map( elem => (
-            <Button 
-                icon={elem.icon} 
-                key={`filter__${elem.type}__${elem.id_elem}`}
-                >{elem.text}
-            </Button>
-        ))
-        return filters.length === 0 ? null : filters
-    }
 
     const toogleSearchProperties = (typeTab) => {
         // управляет поведением кнопок раскрывающих / скрывающих SearchProperties
+        
         if (isOpenSP & tabs[typeTab]) {
             toogleOpenSP(false)
         } else if (isOpenSP & !tabs[typeTab]) {
@@ -178,7 +97,9 @@ export default () => {
 
 
     const addButtonFilters = () => {
+
         const filters_btns = [
+
             !show_filter_btns_for.tags_for.includes(typeOfSearch) ? null :
                 <Button
                     icon={"IcoTags"}
@@ -199,6 +120,7 @@ export default () => {
                     key='filters-button => periods'
                     onBtnClick={e => toogleSearchProperties("periods")}
                 />
+
         ]
 
         return filters_btns.length === 0 ? null : 
@@ -206,6 +128,7 @@ export default () => {
             {filters_btns}
         </div>
     }
+
 
     return <>
         <div className="container-for-search-panel" >
@@ -219,14 +142,23 @@ export default () => {
                     onBtnClick={e => toogleSearchProperties("find_in")}
                 />
                 
+
                 {/* ФИЛЬТРЫ И ТЕКСТ ПОИСКОВОГО ЗАПРОСА */}
                 <div className="search-panel__body-request">
-                    {addFilters()}    {/* filters */}
+                    {/*{addFilters()}     filters */}
+                    {
+                        attachedVisibleFiltes.length === 0 ? null :
+                            <Button
+                                >{attachedVisibleFiltes.length}
+                            </Button>
+                    }
                     <input className="search-panel__text-request" placeholder="искать …"/>
                 </div>
 
+
                 {/* КНОПКИ ОТКРЫТИЯ ОКОН С ФИЛЬТРАМИ */}
                 {addButtonFilters()} {/* adding-filters */}
+
 
                 {/* КНОПКА ОТПРАВКИ ЗАПРОСА */}
                 <Button 
@@ -259,6 +191,7 @@ export default () => {
         </div>
 
         {
+            /* шторка затемняющая содержимое страницы */
             !isOpenSP ? null :
                 <div className="parent-blind">
                     <div 

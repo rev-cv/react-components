@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from "react";
+
 import Button from "Button.jsx";
 import ButtonContainer from "ButtonContainer.jsx";
+
+import SearchPropsWhat from "SearchPropsWhat.jsx";
 import TagContainer from "TagContainer.jsx";
+import SearchPropsActuals from "SearchPropsActuals.jsx";
+
 import 'SearchProperties.sass';
 
 
-import { search_types } from "test-search-types.js";
 import { search_page_btns } from "test-serach-page-btns.js";
-import { periods_of_actual } from "test-actuals.js";
 
 
 Array.prototype.arrayIncluded = function (a) {
@@ -34,19 +37,6 @@ export default ({
         setTags,            // функция для прикрепления тегов контента
     }) => {
 
-    const [isHideDecade, setStatDeacade] = useState(true)
-
-
-    const changeActuals = (actual) => {
-        setAttachActuals(
-            attachedActuals.arrayIncluded(actual) ?
-                attachedActuals.filter(item => !actual.includes(item))
-                :
-                [ ...new Set([...attachedActuals, ...actual]) ]
-        )
-
-    }
-
 
     const changePosition = () => {
         if (refSearchPanel.current == undefined) return {}
@@ -61,7 +51,9 @@ export default ({
         }
     }
 
+
     const [stylePos, setStylePos] = useState(changePosition());
+
 
     useEffect(() => {
         if (isOpenSP){
@@ -101,65 +93,6 @@ export default ({
     }
 
 
-    const setFilterTimingActual = () => {
-        const result = []
-        const arrr = ["season", "month"]
-
-        arrr.map(key => {
-            if (key === "season"){
-                result.push(
-                    <div 
-                        className="search-properties__when__title"
-                        key={`search-props-when-search-title${key}`}
-                        > Выбрать актуальный сезон
-                    </div>
-                )
-            } else if (key === "month"){
-                result.push(
-                    <div
-                        className="search-properties__when__title"
-                        key={`search-props-when-search-title${key}`}
-                        >Выбрать актуальные месяцы
-                    </div>
-                )
-            }
-
-            result.push(
-                <div
-                    className="search-properties__when__stack"
-                    key={`.search-properties__when > .stack > ${key}`}
-                    > {
-                        periods_of_actual
-                            .filter(item => item.type === key)
-                            .map((item, index, array) => (
-
-                                <Button
-
-                                    key={`search-props-when-search-${item.text}`}
-
-                                    classList={[
-                                        attachedActuals.arrayIncluded(item.attach) ?
-                                            'select' : null
-                                    ]}
-
-                                    onBtnClick={e => changeActuals(item.attach)}
-
-                                    >{item.text}
-
-                                </Button>
-                            ))
-                    }
-                </div>
-            )
-    
-        })
-
-        console.log(result)
-
-        return result
-    }
-
-
     return <div 
         className={isOpenSP ? "search-properties" : "search-properties closing"}
         style={stylePos}
@@ -174,41 +107,14 @@ export default ({
                 /* ОТОБРАЖЕНИЕ СТРАНИЦЫ С «ЧТО ИСКАТЬ» */
 
                 !tabs.find_in ? null :
-
-                    <div className="search-properties__what"> 
-                        {
-                            Object.values(search_types).map((item, index, array) => (
-
-                                <Button
-
-                                    key={`.search-properties > .what > ${index}`}
-
-                                    classList={[
-                                        item.type === typeOfSearch ? 'select' : null,
-                                        item.type === "all" ? 'select_how_all' : null,
-                                    ]}
-
-                                    icon={item.icon}
-
-                                    onBtnClick={e => {
-                                        setTypeOfSearch(item.type)
-                                        updateVisibleTabs(
-                                            getVisibleTabs(
-                                                tabs.tags ? "tags"
-                                                    : tabs.filters ? "filters"
-                                                    : tabs.periods ? "periods" : "find_in",
-                                                item.type
-                                            )
-                                        )
-                                    }}
-
-                                    >{item.desc}
-
-                                </Button>
-                                
-                            ))
-                        }
-                        
+                    <div className="search-properties__what">
+                        <SearchPropsWhat
+                            tabs={tabs}
+                            setTypeOfSearch={setTypeOfSearch}
+                            updateVisibleTabs={updateVisibleTabs}
+                            getVisibleTabs={getVisibleTabs}
+                            typeOfSearch={typeOfSearch}
+                        />
                     </div>
             }
 
@@ -217,20 +123,21 @@ export default ({
 
                 !tabs.tags ? null :
                     <div className="search-properties__tags">
-                        <TagContainer returnTagsFixed={result => setTags(result)}/>
+                        <TagContainer returnTagsFixed={result => setTags(result)} />
                     </div>
             }
 
             {
-                /* ОТОБРАЖЕНИЕ СТРАНИЦЫ С «ВРЕМЕННЫЕ ФИЛЬТРЫ» */
+                /* ОТОБРАЖЕНИЕ СТРАНИЦЫ С «АКТУАЛЬНОЕ ВРЕМЯ» */
 
                 !tabs.periods ? null :
                     <div className="search-properties__when">
-                        { setFilterTimingActual() }
+                        <SearchPropsActuals 
+                            attachedActuals={attachedActuals}
+                            setAttachActuals={setAttachActuals}
+                        />
                     </div>
             }
                 
-                
     </div>
 }
-
