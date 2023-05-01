@@ -67,30 +67,18 @@
 
         button
             font-size: .8em
-
-            padding: .2em .6em
             background: var(--color-request-send)
-            margin: .1em
-
-            // transform: scale(.8)
-
             height: 1em + $offset
-
             border: .1em dashed transparent
 
-            svg
-                transform: scale(.7)
+            .btn-standart__text
+                margin: 0 .2em 0 .5em
 
-                path 
-                    fill: white
+            svg > path
+                fill: var(--color-content-100)
 
             div
-                color: white
-
-            &:hover
-                background: #ac1a1d
-                transition: background .9s var(--animation-timing-standart)
-                border-color: var(--color-window)
+                color: var(--color-content-100)
 
         input
             height: 1em + $offset
@@ -135,7 +123,7 @@
         background: var(--color-request-send)
         
         svg > path 
-            fill: white
+            fill: var(--color-content-100)
 
         svg
             transform: scale(1.1)
@@ -163,26 +151,7 @@
             svg > path 
                 fill: white
                 opacity: .8
-        
-
-        .btn-cucumber
-            // border: 1px solid var(--color-window)
-            // background: transparent
-            // border: .16em solid var(--color-window)
-
-            // padding: .1em .8em
             
-
-            
-
-            // transform: scale(.6)
-
-    
-    // &__text-request
-    //     background-color: yellow
-    //     // flex-grow: 1
-    //     min-width: 10em
-    
     
 .parent-blind
     position: static

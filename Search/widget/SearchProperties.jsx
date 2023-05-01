@@ -7,8 +7,6 @@ import SearchPropsWhat from "SearchPropsWhat.jsx";
 import TagContainer from "TagContainer.jsx";
 import SearchPropsActuals from "SearchPropsActuals.jsx";
 
-import 'SearchProperties.sass';
-
 
 import { search_page_btns } from "test-serach-page-btns.js";
 
@@ -29,11 +27,11 @@ export default ({
         getVisibleTabs,     // генерация отображаемых вкладок и того какая вкладка открыта
         refSearchPanel,     // ref для searc-panel
 
-        attachedActuals,    // прикрепленные периоды актуальности
+        attachedActuals = [],    // прикрепленные периоды актуальности
         setAttachActuals,   // функция для прикрепления периодов актуальности
-        attachedPlantFilters,// прикрепленные фильтры растений
+        attachedPlantFilters = [],// прикрепленные фильтры растений
         setPlantFilters,    // функция для прикрепления фильтров растений
-        attachedTags,       // прикрепленные теги контента
+        attachedTags = [],       // прикрепленные теги контента
         setTags,            // функция для прикрепления тегов контента
     }) => {
 
@@ -120,10 +118,13 @@ export default ({
 
             {
                 /* ОТОБРАЖЕНИЕ СТРАНИЦЫ С ТЕГАМИ */
-
+                
                 !tabs.tags ? null :
                     <div className="search-properties__tags">
-                        <TagContainer returnTagsFixed={result => setTags(result)} />
+                        <TagContainer 
+                            returnTagsFixed={result => setTags(result)}
+                            attachedTags={attachedTags}
+                        />
                     </div>
             }
 

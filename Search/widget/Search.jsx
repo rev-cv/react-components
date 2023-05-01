@@ -1,8 +1,11 @@
 import React, { useState, useRef, useEffect } from "react";
 import Button from "Button.jsx";
 import SearchProperties from "SearchProperties.jsx";
-import { calcFilters } from "calc-of-all-added-filters.js";
+import SearchAddedFilters from "SearchAddedFilters.jsx";
+
+
 import 'Search.sass';
+import 'SearchProperties.sass';
 
 
 import { search_types, show_filter_btns_for } from "test-search-types.js";
@@ -10,13 +13,50 @@ import { search_types, show_filter_btns_for } from "test-search-types.js";
 
 export default () => {
 
+
     const refSearchPanel = useRef()
+
 
     // ↓ Какой тип информации ищется?
     const [typeOfSearch, setTypeOfSearch] = useState("notes")
 
     // ↓ открыт или закрыт SearchProperties?
     const [isOpenSP, toogleOpenSP] = useState(false)
+
+    // ↓ открыт или закрыт SearchAddedFilters?
+    const [isOpenAF, toogleOpenAF] = useState(false)
+
+
+    const tooglePanels = arg => {
+
+        if (arg === 'added-filters') {
+            if (isOpenAF) {
+                // открыт SearchAddedFilters и его нужно закрыть
+                toogleOpenAF(false)
+            } else {
+                // нужно закрыть все остальные панели и открыть SearchAddedFilters
+                if (isOpenSP) toogleOpenSP(false)
+
+                setTimeout(() => {
+                    toogleOpenAF(true)
+                }, 150);
+            }
+        } else if (isOpenSP & tabs[arg]) {
+            // открыт SearchProperties и его нужно закрыть
+            toogleOpenSP(false)
+        } else if (isOpenSP & !tabs[arg]) {
+            // открыт SearchProperties и нужно просто изменить вкладку
+            updateVisibleTabs(getVisibleTabs(arg))
+        } else {
+            // нужно закрыть все остальные панели и открыть SearchProperties
+            if (isOpenAF) toogleOpenAF(false)
+
+            setTimeout(() => {
+                updateVisibleTabs(getVisibleTabs(arg))
+                toogleOpenSP(true)
+            }, 150);
+        }
+    }
 
 
     const getVisibleTabs = (tab, tos = typeOfSearch) => {
@@ -65,35 +105,11 @@ export default () => {
     // ↓ какие теги контента добавлены?
     const [attachedTags, setTags] = useState([])
 
-    // ↓ список отображенных на панеле фильтров (все типы)
-    const [attachedVisibleFiltes, setVisibleFiltes] = useState([])
 
-
-    const p = {
-        initialized: "plant_filter",
-        attachedTags,
-        attachedPlantFilters,
-        attachedActuals,
-        attachedVisibleFiltes,
-        setVisibleFiltes,
-    }
-    useEffect(() => calcFilters(p), [attachedPlantFilters])
-    useEffect(() => calcFilters({ ...p, initialized: 'tag' }), [attachedTags])
-    useEffect(() => calcFilters({ ...p, initialized: 'actual_date' }), [attachedActuals])
-
-
-    const toogleSearchProperties = (typeTab) => {
-        // управляет поведением кнопок раскрывающих / скрывающих SearchProperties
-        
-        if (isOpenSP & tabs[typeTab]) {
-            toogleOpenSP(false)
-        } else if (isOpenSP & !tabs[typeTab]) {
-            updateVisibleTabs(getVisibleTabs(typeTab))
-        } else {
-            updateVisibleTabs(getVisibleTabs(typeTab))
-            toogleOpenSP(true)
-        }
-    }
+    const countAllFilters =
+        + attachedPlantFilters.length
+        + attachedActuals.length
+        + attachedTags.length;
 
 
     const addButtonFilters = () => {
@@ -104,21 +120,21 @@ export default () => {
                 <Button
                     icon={"IcoTags"}
                     key='filters-button => tags'
-                    onBtnClick={e => toogleSearchProperties("tags")}
+                    onBtnClick={e => tooglePanels("tags")}
                 />,
             
             !show_filter_btns_for.filters_for.includes(typeOfSearch) ? null :
                 <Button
                     icon={"IcoFilters"}
                     key='filters-button => filters'
-                    onBtnClick={e => toogleSearchProperties("filters")}
+                    onBtnClick={e => tooglePanels("filters")}
                 />,
 
             !show_filter_btns_for.actuals_for.includes(typeOfSearch) ? null :
                 <Button
                     icon={"IcoPeriods"}
                     key='filters-button => periods'
-                    onBtnClick={e => toogleSearchProperties("periods")}
+                    onBtnClick={e => tooglePanels("periods")}
                 />
 
         ]
@@ -139,18 +155,19 @@ export default () => {
                 <Button
                     className="search-panel__what-search"
                     icon={search_types[typeOfSearch].icon}
-                    onBtnClick={e => toogleSearchProperties("find_in")}
+                    onBtnClick={e => tooglePanels("find_in")}
                 />
                 
 
                 {/* ФИЛЬТРЫ И ТЕКСТ ПОИСКОВОГО ЗАПРОСА */}
                 <div className="search-panel__body-request">
-                    {/*{addFilters()}     filters */}
                     {
-                        attachedVisibleFiltes.length === 0 ? null :
+                        countAllFilters === 0 ? null :
                             <Button
-                                >{attachedVisibleFiltes.length}
-                            </Button>
+                                icon='IcoСlip'
+                                onBtnClick={e => tooglePanels('added-filters')}
+                                children={countAllFilters}
+                            />
                     }
                     <input className="search-panel__text-request" placeholder="искать …"/>
                 </div>
@@ -188,17 +205,33 @@ export default () => {
                 setTags={setTags}
             />
 
+            <SearchAddedFilters 
+                isOpenAF={isOpenAF}
+                refSearchPanel={refSearchPanel}
+
+                // ↓ массивы с добавленными фильтрами разных типов
+                attachedActuals={attachedActuals}
+                setAttachActuals={setAttachActuals}
+                attachedPlantFilters={attachedPlantFilters}
+                setPlantFilters={setPlantFilters}
+                attachedTags={attachedTags}
+                setTags={setTags}
+            />
+
         </div>
 
         {
             /* шторка затемняющая содержимое страницы */
-            !isOpenSP ? null :
+            (isOpenSP | isOpenAF) ? 
                 <div className="parent-blind">
-                    <div 
+                    <div
                         className="blind"
-                        onClick={e => toogleOpenSP(false)}
+                        onClick={e => {
+                            if (isOpenSP) toogleOpenSP(false);
+                            if (isOpenAF) toogleOpenAF(false);
+                        }}
                     />
-                </div>
+                </div> : null
         }
     </>
 }

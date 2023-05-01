@@ -108,6 +108,7 @@ body.dark-theme {
   --color-link-visited: hsl(240, 70%, 70%);
   --color-request-send: rgb(46, 108, 215);
   --coo: #80808080;
+  --color-danger: #ac1a1d;
 }
 
 body {
@@ -125,8 +126,9 @@ body {
   --color-link: hsl(210, 50%, 50%);
   --color-link-hover: hsl(210, 100%, 50%);
   --color-link-visited: hsl(240, 70%, 70%);
-  --color-request-send: #4b87ff;
   --color-request-send: #ffaa00;
+  /* --color-request-send-content: #fff; */
+  --color-danger: hsl(0, 100%, 65%);
 }
 
 body {
@@ -533,6 +535,134 @@ button.change-theme {
   transform: scale(0.95);
   background: var(--color-bg);
 }
+/*!*******************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/postcss-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./widget/Search.sass ***!
+  \*******************************************************************************************************************************************************/
+.container-for-search-panel {
+  font-size: 1.2em;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(7em, 40em) minmax(0, 1fr);
+  position: relative;
+}
+
+.search-panel {
+  grid-column: 2/3;
+  font-size: 1em;
+  display: grid;
+  grid-column-gap: 0.2em;
+  grid-template-columns: 1em minmax(10em, 1fr) minmax(0, auto) 1.5em;
+  margin: 0.5em;
+  padding: 0.7em;
+  border-radius: 1.15em;
+  z-index: 10;
+  background: var(--color-bg);
+  color: var(--color-content-70);
+  box-shadow: 0px 0px 2px var(--color-shodow);
+}
+.search-panel__what-search {
+  grid-column: 1/2;
+  justify-self: start;
+  align-self: start;
+  width: 1.8em;
+  height: 1.8em;
+  padding: 0.1em;
+  margin: -0.4em;
+  background: var(--color-window);
+}
+.search-panel__body-request {
+  grid-column: 2/3;
+  padding: 0 1em;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: -0.3em;
+}
+.search-panel__body-request button {
+  font-size: 0.8em;
+  background: var(--color-request-send);
+  height: 1.6em;
+  border: 0.1em dashed transparent;
+}
+.search-panel__body-request button .btn-standart__text {
+  margin: 0 0.2em 0 0.5em;
+}
+.search-panel__body-request button svg > path {
+  fill: var(--color-content-100);
+}
+.search-panel__body-request button div {
+  color: var(--color-content-100);
+}
+.search-panel__body-request input {
+  height: 1.6em;
+  margin: 0.1em;
+  padding-left: 0.4em;
+  background: transparent;
+  color: var(--color-content-70);
+  flex-grow: 1;
+  font-weight: 500;
+}
+.search-panel__adding-filters {
+  grid-column: 3/4;
+  display: flex;
+  justify-self: end;
+  align-self: end;
+}
+.search-panel__adding-filters button {
+  width: 1.4em;
+  height: 1.4em;
+  padding: 0;
+  margin: -0.2em 0.2em;
+}
+.search-panel__btn-send {
+  grid-column: 4/5;
+  justify-self: end;
+  align-self: end;
+  width: 2.2em;
+  height: 2.2em;
+  border-radius: 2em;
+  margin: -0.7em;
+  bottom: 0.1em;
+  right: 0.1em;
+  background: var(--color-request-send);
+}
+.search-panel__btn-send svg > path {
+  fill: var(--color-content-100);
+}
+.search-panel__btn-send svg {
+  transform: scale(1.1);
+}
+.search-panel__btn-send .btn-animation-bubble {
+  background: #c8e4ff;
+}
+.search-panel__filters {
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+}
+.search-panel__filters button {
+  margin: -1em 0.4em;
+  padding: 0.2em 0.2em 0.2em 0.6em;
+  background: var(--color-request-send);
+  transform: scale(0.8);
+}
+.search-panel__filters button svg > path {
+  fill: white;
+  opacity: 0.8;
+}
+
+.parent-blind {
+  position: static;
+}
+.parent-blind .blind {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--color-window-70);
+  backdrop-filter: blur(2px);
+}
 /*!*****************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/postcss-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./widget/SearchProperties.sass ***!
   \*****************************************************************************************************************************************************************/
@@ -570,10 +700,10 @@ button.change-theme {
   font-weight: bold;
 }
 .search-properties .select svg > path {
-  fill: white;
+  fill: var(--color-content-100);
 }
 .search-properties .select div {
-  color: white;
+  color: var(--color-content-100);
 }
 .search-properties .select .btn-animation-bubble {
   background: #c8e4ff;
@@ -642,6 +772,24 @@ button.change-theme {
   margin: 0.3em;
   background: transparent;
 }
+.search-properties__title {
+  font-size: 0.8em;
+  font-weight: bold;
+  color: var(--color-content-50);
+}
+.search-properties__container-filter {
+  justify-content: flex-end;
+  margin: 0.5em;
+  font-size: 0.8em;
+}
+.search-properties__container-filter .btn-standart__text__t {
+  color: var(--color-content-100);
+}
+.search-properties__container-filter__delete:hover {
+  background: var(--color-danger);
+  transition: background 0.9s var(--animation-timing-standart);
+  border-color: var(--color-window);
+}
 
 .closing {
   height: 0;
@@ -650,138 +798,4 @@ button.change-theme {
   transition-property: opacity, height, padding;
   transition-duration: 0.9s;
   transition-timing-function: var(--animation-timing-standart);
-}
-/*!*******************************************************************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/postcss-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./widget/Search.sass ***!
-  \*******************************************************************************************************************************************************/
-.container-for-search-panel {
-  font-size: 1.2em;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(7em, 40em) minmax(0, 1fr);
-  position: relative;
-}
-
-.search-panel {
-  grid-column: 2/3;
-  font-size: 1em;
-  display: grid;
-  grid-column-gap: 0.2em;
-  grid-template-columns: 1em minmax(10em, 1fr) minmax(0, auto) 1.5em;
-  margin: 0.5em;
-  padding: 0.7em;
-  border-radius: 1.15em;
-  z-index: 10;
-  background: var(--color-bg);
-  color: var(--color-content-70);
-  box-shadow: 0px 0px 2px var(--color-shodow);
-}
-.search-panel__what-search {
-  grid-column: 1/2;
-  justify-self: start;
-  align-self: start;
-  width: 1.8em;
-  height: 1.8em;
-  padding: 0.1em;
-  margin: -0.4em;
-  background: var(--color-window);
-}
-.search-panel__body-request {
-  grid-column: 2/3;
-  padding: 0 1em;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  margin: -0.3em;
-}
-.search-panel__body-request button {
-  font-size: 0.8em;
-  padding: 0.2em 0.6em;
-  background: var(--color-request-send);
-  margin: 0.1em;
-  height: 1.6em;
-  border: 0.1em dashed transparent;
-}
-.search-panel__body-request button svg {
-  transform: scale(0.7);
-}
-.search-panel__body-request button svg path {
-  fill: white;
-}
-.search-panel__body-request button div {
-  color: white;
-}
-.search-panel__body-request button:hover {
-  background: #ac1a1d;
-  transition: background 0.9s var(--animation-timing-standart);
-  border-color: var(--color-window);
-}
-.search-panel__body-request input {
-  height: 1.6em;
-  margin: 0.1em;
-  padding-left: 0.4em;
-  background: transparent;
-  color: var(--color-content-70);
-  flex-grow: 1;
-  font-weight: 500;
-}
-.search-panel__adding-filters {
-  grid-column: 3/4;
-  display: flex;
-  justify-self: end;
-  align-self: end;
-}
-.search-panel__adding-filters button {
-  width: 1.4em;
-  height: 1.4em;
-  padding: 0;
-  margin: -0.2em 0.2em;
-}
-.search-panel__btn-send {
-  grid-column: 4/5;
-  justify-self: end;
-  align-self: end;
-  width: 2.2em;
-  height: 2.2em;
-  border-radius: 2em;
-  margin: -0.7em;
-  bottom: 0.1em;
-  right: 0.1em;
-  background: var(--color-request-send);
-}
-.search-panel__btn-send svg > path {
-  fill: white;
-}
-.search-panel__btn-send svg {
-  transform: scale(1.1);
-}
-.search-panel__btn-send .btn-animation-bubble {
-  background: #c8e4ff;
-}
-.search-panel__filters {
-  padding: 0;
-  margin: 0;
-  display: flex;
-  align-items: center;
-}
-.search-panel__filters button {
-  margin: -1em 0.4em;
-  padding: 0.2em 0.2em 0.2em 0.6em;
-  background: var(--color-request-send);
-  transform: scale(0.8);
-}
-.search-panel__filters button svg > path {
-  fill: white;
-  opacity: 0.8;
-}
-.parent-blind {
-  position: static;
-}
-.parent-blind .blind {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: var(--color-window-70);
-  backdrop-filter: blur(2px);
 }

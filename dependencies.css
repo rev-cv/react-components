@@ -19,6 +19,8 @@ body.dark-theme {
 
     --color-request-send: rgb(46, 108, 215);
     --coo: #80808080;
+
+    --color-danger: #ac1a1d;
 }
 
 body {
@@ -41,8 +43,10 @@ body {
     --color-link-hover: hsl(210, 100%, 50%);
     --color-link-visited: hsl(240, 70%, 70%);
 
-    --color-request-send: #4b87ff;
     --color-request-send: #ffaa00;
+    /* --color-request-send-content: #fff; */
+
+    --color-danger: hsl(0, 100%, 65%);
 }
 
 

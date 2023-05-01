@@ -43,10 +43,10 @@
         font-weight: bold
 
         svg > path 
-            fill: white
+            fill: var(--color-content-100)
 
         div
-            color: white
+            color: var(--color-content-100)
 
         .btn-animation-bubble
             background: #c8e4ff
@@ -134,16 +134,26 @@
         button
             margin: .3em
             background: transparent
+            
+    &__title
+        font-size: .8em
+        font-weight: bold
+        color: var(--color-content-50)
 
-        // &__stack-dec
-        //     padding: .5em 0
-        //     display: grid
-        //     grid-template-columns: 1fr 1fr 1fr
-            // border-bottom: 1px solid var(--color-content-50)
+    &__container-filter
+        justify-content: flex-end
+        margin: .5em
+        font-size: .8em
 
-        // .btn-hide-show
-        //     align-self: center
-        //     min-height: 2em
+        .btn-standart__text__t
+            color: var(--color-content-100)
+
+        &__delete:hover
+            background: var(--color-danger)
+            transition: background .9s var(--animation-timing-standart)
+            border-color: var(--color-window)
+
+
 
 
 

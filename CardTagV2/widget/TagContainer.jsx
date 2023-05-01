@@ -35,12 +35,14 @@ const excludeTags = (id) => {
 }
 
 export default ({
-    parent_id = 0,
+    attachedTags=[],
     returnTagsFixed = (result) => (console.log(result))
 }) => {
-
+    console.log(attachedTags)
     // ↓ список ID выбранный тегов
-    const [fixedIDTags, updateFixedTags] = useState([])
+    const [fixedIDTags, updateFixedTags] = useState([
+        ...attachedTags.map(elem => elem.id)
+    ])
     const [generalDad, setParentForPage] = useState(0)
     // ↑ папочка чьи дети сейчас отображаются
     // если значение -1, то включается особый режим 
