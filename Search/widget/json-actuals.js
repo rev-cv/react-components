@@ -52,3 +52,27 @@ export const periods_of_actual = [
     ...months,
     ...decades
 ]
+
+
+export const relative_period_of_actual = [
+    {
+        text: 'сегодня',
+        mark: 'today',
+        title: 'актуальное сегодня'
+    },
+    {
+        text: '7 дней',
+        mark: '7d',
+        title: 'актуальное в течении ближайшей недели'
+    },
+    {
+        text: '14 дней',
+        mark: '14d',
+        title: 'актуальное в течении ближайших 2х недель'
+    },
+    {
+        text: 'месяц',
+        mark: '1m',
+        title: 'актуальное в течении ближайших 4х недель'
+    },
+]

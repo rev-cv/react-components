@@ -18,21 +18,23 @@ Array.prototype.arrayIncluded = function (a) {
 
 
 export default ({ 
-        isOpenSP,           // открытали страница?
-        toogleOpenSP,       // функция для управление открытием / закрытием страницы
-        typeOfSearch,       // какой тип информации ищется?
-        setTypeOfSearch,    // функция установки типа искомой информации
-        tabs,               // какие вкладки отображаются и какая вкладка открыта?
-        updateVisibleTabs,  // обновление статуса вкладок → tabs
-        getVisibleTabs,     // генерация отображаемых вкладок и того какая вкладка открыта
-        refSearchPanel,     // ref для searc-panel
+        isOpenSP,                   // открытали страница?
+        toogleOpenSP,               // функция для управление открытием / закрытием страницы
+        typeOfSearch,               // какой тип информации ищется?
+        setTypeOfSearch,            // функция установки типа искомой информации
+        tabs,                       // какие вкладки отображаются и какая вкладка открыта?
+        updateVisibleTabs,          // обновление статуса вкладок → tabs
+        getVisibleTabs,             // генерация отображаемых вкладок и того какая вкладка открыта
+        refSearchPanel,             // ref для searc-panel
 
-        attachedActuals = [],    // прикрепленные периоды актуальности
-        setAttachActuals,   // функция для прикрепления периодов актуальности
-        attachedPlantFilters = [],// прикрепленные фильтры растений
-        setPlantFilters,    // функция для прикрепления фильтров растений
-        attachedTags = [],       // прикрепленные теги контента
-        setTags,            // функция для прикрепления тегов контента
+        attachedActuals = [],       // прикрепленные периоды актуальности
+        setAttachActuals,           // функция для прикрепления периодов актуальности
+        attachedPlantFilters = [],  // прикрепленные фильтры растений
+        setPlantFilters,            // функция для прикрепления фильтров растений
+        attachedTags = [],          // прикрепленные теги контента
+        setTags,                    // функция для прикрепления тегов контента
+        attachedRelativeActuals="none", // прикрепленный относительный период актуальности
+        setAttachRelativeActuals,
     }) => {
 
 
@@ -136,6 +138,8 @@ export default ({
                         <SearchPropsActuals 
                             attachedActuals={attachedActuals}
                             setAttachActuals={setAttachActuals}
+                            attachedRelativeActuals={attachedRelativeActuals}
+                            setAttachRelativeActuals={setAttachRelativeActuals}
                         />
                     </div>
             }

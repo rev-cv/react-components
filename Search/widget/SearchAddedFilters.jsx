@@ -12,6 +12,8 @@ export default ({
     setPlantFilters,    // функция для прикрепления фильтров растений
     attachedTags,       // прикрепленные теги контента
     setTags,            // функция для прикрепления тегов контента
+    attachedRelativeActuals = "none",
+    setAttachRelativeActuals,
 }) => {
 
 
@@ -45,7 +47,7 @@ export default ({
     }, [isOpenAF]);
 
 
-    const setff = (title, text, list, setter) => {
+    const setff = (title, text, list, setter, icon) => {
         return <>
 
             <div className="search-properties__title">{title}</div>
@@ -56,9 +58,10 @@ export default ({
                         key={`search-properties__title > ${elem.id}`}
                         className='search-properties__container-filter'
                     >
-                        <Button
-                            className='disable'
-                            children={elem[text]}
+                        <Button 
+                            className='search-properties__container-filter__text'
+                            icon={icon} 
+                            children={elem[text]} 
                         />
                         <Button
                             className='search-properties__container-filter__delete'
@@ -77,18 +80,54 @@ export default ({
         style={stylePos}
     >
         {
+            attachedRelativeActuals === "none" ? null :
+                <>
+                    <div className="search-properties__title">
+                        Актуально в течении
+                    </div>
+
+                    <ButtonContainer
+                        key="search-properties__title > relative-actuals"
+                        className='search-properties__container-filter'
+                    >
+
+                        <Button
+                            className='search-properties__container-filter__text'
+                            children={
+                                attachedRelativeActuals === 'today' ? 'сегодня' 
+                                : attachedRelativeActuals === '7d' ? 'ближайшей недели'
+                                : attachedRelativeActuals === '14d' ? 'ближайших 2х недель'
+                                : attachedRelativeActuals === '1m' ? 'ближайшего месяца'
+                                : null
+                            }
+                            icon='IcoPeriods'
+                        />
+                        <Button
+                            className='search-properties__container-filter__delete'
+                            icon="IcoClose"
+                            onBtnClick={e => setAttachRelativeActuals('none')}
+                        />
+                        
+                    </ButtonContainer>
+                
+                </>
+        }
+
+        {
             attachedActuals.length === 0 ? null :
                 setff(
-                    'Прикрепленные к запросу периоды актуальности', 'text',
+                    'Периоды актуальности', 'text',
                     attachedActuals, setAttachActuals,
+                    'IcoPeriods'
                 )
         }
 
         {
             attachedTags.length === 0 ? null :
                 setff(
-                    'Прикрепленные к запросу теги', 'tag',
+                    'Теги', 'tag',
                     attachedTags, setTags,
+                    'IcoTags'
                 )
         }
 

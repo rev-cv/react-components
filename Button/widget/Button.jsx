@@ -14,7 +14,7 @@ export default ({
     onBtnClick,     // если не передана функция, то кнопка не работает
     classList = [], // дополнительные классы переданные извне в виде списка
     className = "", // дополнительные классы переданные извне в виде строки
-    // tooltop=""      // всплывающая подсказка с текстом
+    title = null      // всплывающая подсказка с текстом
 }) => {
 
     let useClass = `btn-ico-only`
@@ -35,9 +35,9 @@ export default ({
         addNewBubble([
             ...bubbles,
             [
-                +new Date(), 
-                event.clientX - rect.x, 
-                event.clientY - rect.y, 
+                +new Date(),
+                event.clientX - rect.x,
+                event.clientY - rect.y,
                 rect.width * 1.3
             ]
         ])
@@ -95,13 +95,14 @@ export default ({
         // Warning: validateDOMNesting
         // https://stackoverflow.com/questions/47282998
     }
-    
+
     return (
         <button
             className={classes}
             style={style}
             ref={btn}
             onClick={onBtnClick ? actionByClick : null}
+            title={title}
         >
 
             {getObjectIcon()}

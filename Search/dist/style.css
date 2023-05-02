@@ -657,9 +657,9 @@ button.change-theme {
 .parent-blind .blind {
   position: absolute;
   top: 0;
-  bottom: 0;
   left: 0;
-  right: 0;
+  width: 100%;
+  height: 100%;
   background: var(--color-window-70);
   backdrop-filter: blur(2px);
 }
@@ -773,17 +773,26 @@ button.change-theme {
   background: transparent;
 }
 .search-properties__title {
+  padding: 1em 0 0.6em 0;
   font-size: 0.8em;
   font-weight: bold;
   color: var(--color-content-50);
 }
 .search-properties__container-filter {
-  justify-content: flex-end;
   margin: 0.5em;
   font-size: 0.8em;
 }
 .search-properties__container-filter .btn-standart__text__t {
   color: var(--color-content-100);
+}
+.search-properties__container-filter__text {
+  cursor: default;
+}
+.search-properties__container-filter__text:hover:before {
+  opacity: 0;
+}
+.search-properties__container-filter__text, .search-properties__container-filter__delete {
+  background: rgba(128, 128, 128, 0.1019607843);
 }
 .search-properties__container-filter__delete:hover {
   background: var(--color-danger);

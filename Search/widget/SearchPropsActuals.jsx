@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Button from "Button.jsx";
 
 
-import { periods_of_actual } from "test-actuals.js";
+import { periods_of_actual, relative_period_of_actual } from "json-actuals.js";
 
 
 Array.prototype.arrayIncluded = function (a) {
@@ -11,15 +11,55 @@ Array.prototype.arrayIncluded = function (a) {
 };
 
 
+export default ({ 
+    attachedActuals, 
+    setAttachActuals, 
+    attachedRelativeActuals = "none",
+    setAttachRelativeActuals 
+}) => {
 
-export default ({ attachedActuals, setAttachActuals, }) => {
 
-    const [attachedDecades, setAttachedDecades] = useState([])
+    const extractionAvtuals = () => {
+
+        // ↓ РАЗБИРАЕТ ДОПАВЛЕННЫЙ РАНЕЕ ЗАПРОС НА ЭЛЕМЕНТЫ ИЗ periods_of_actual
+
+        if (attachedActuals.length === 0) return []
+        
+        return periods_of_actual.filter(x => {
+
+            let isTrue = false 
+
+            attachedActuals.forEach(y => {
+
+                if (
+                    (
+                        y.request[0] >= x.request[0] 
+                        & 
+                        x.request[1] <= y.request[1]
+                    )|(
+                        y.request[1] < y.request[0]
+                        &
+                        y.request[0] <= x.request[0]
+                        &
+                        x.request[1] <= 1231
+                    )
+                ) isTrue = true
+
+            });
+
+            return isTrue
+
+        }).map(elem => elem.attach)
+    }
+
+
+    const [attachedDecades, setAttachedDecades] = useState(extractionAvtuals())
+
 
     const changeActuals = (actual) => {
 
-
         // ↓ ФИКСАЦИЯ АКТУАЛЬНЫХ СЕЗОНОВ И МЕСЯЦЕВ
+
         const actuals = attachedDecades.arrayIncluded(actual.attach) ?
             attachedDecades.filter(item => !actual.attach.includes(item))
             :
@@ -27,12 +67,14 @@ export default ({ attachedActuals, setAttachActuals, }) => {
 
 
         // ↓ ВЫБОР АКТУАЛЬНЫХ МЕСЯЦЕВ
+
         const month = periods_of_actual.filter(elem => 
             elem.type === "month" & actuals.arrayIncluded(elem.attach) 
         ).sort(elem => elem.attach[0])
 
 
         // ↓ СПАЙКА СОСЕДСТВУЮЩИХ МЕСЯЦЕВ
+
         let adhesions = []
 
         for (let index = 0; index < month.length; index++) {
@@ -76,7 +118,6 @@ export default ({ attachedActuals, setAttachActuals, }) => {
         })))
 
         setAttachedDecades(actuals)
-
     }
 
 
@@ -110,12 +151,6 @@ export default ({ attachedActuals, setAttachActuals, }) => {
     return <>
 
         <div
-            className='search-properties__when__preview'
-            key='search-props-when-search-title-4545'
-            children={attachedActuals.map(elem => elem.text).join(",   ")}
-        />
-
-        <div
             className='search-properties__when__title'
             key='search-props-when-search-title-now'
             children='Выбрать ближайший актуальный период'
@@ -124,46 +159,24 @@ export default ({ attachedActuals, setAttachActuals, }) => {
         <div
             className="search-properties__when__stack"
             key={`.search-properties__when > .stack > now`}
-        >
-
-            <Button
-                key={`search-props-when-search-now`}
-                // className={
-                //     attachedDecades.arrayIncluded(item.attach) ? 'select' : undefined
-                // }
-                onBtnClick={e => console.log('сегодня')}
-                children="сегодня"
-            />
-
-            <Button
-                key={`search-props-when-search-now-week`}
-                // className={
-                //     attachedDecades.arrayIncluded(item.attach) ? 'select' : undefined
-                // }
-                onBtnClick={e => console.log('ближайшая неделя')}
-                children="7 дней"
-            />
-
-            <Button
-                key={`search-props-when-search-now-2-week`}
-                // className={
-                //     attachedDecades.arrayIncluded(item.attach) ? 'select' : undefined
-                // }
-                onBtnClick={e => console.log('ближайшие 2 недели')}
-                children="14 дней"
-            />
-
-            <Button
-                key={`search-props-when-search-now-month`}
-                // className={
-                //     attachedDecades.arrayIncluded(item.attach) ? 'select' : undefined
-                // }
-                onBtnClick={e => console.log('ближайший месяц')}
-                children="месяц"
-            />
-
+            >
+            {
+                relative_period_of_actual.map( x => (
+                    <Button
+                        key={`search-props-when-search-${x.mark}`}
+                        className={
+                            attachedRelativeActuals === x.mark ? 'select' : undefined
+                        }
+                        onBtnClick={e => setAttachRelativeActuals(
+                            attachedRelativeActuals === x.mark ? 'none' : x.mark
+                        )}
+                        children={x.text}
+                        title={x.title}
+                    />
+                ))
+            }
         </div>
-    
+
         <div
             className='search-properties__when__title'
             key='search-props-when-search-title-season'
@@ -180,6 +193,11 @@ export default ({ attachedActuals, setAttachActuals, }) => {
 
         {addActualElems("month")}
 
-        
+        <div
+            className='search-properties__when__preview'
+            key='search-props-when-search-title-4545'
+            children={attachedActuals.map(elem => elem.text).join(",   ")}
+        />
+
     </>
 }

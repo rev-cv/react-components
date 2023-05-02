@@ -1,7 +1,6 @@
 .search-properties
     color: red
 
-    // grid-column: 2 / 3
     position: absolute
 
     background: var(--color-bg)
@@ -62,8 +61,6 @@
         // СТРАНИЦА С ФИЛЬТРАМИ «ЧТО ИСКАТЬ?»
         font-size: .8em
 
-        // flex-grow: 1
-
         display: grid
         grid-template-columns: 1fr 1fr
         grid-gap: .4em
@@ -80,7 +77,6 @@
             justify-items: end
 
         button
-            // background: var(--color-window)
             background: transparent
 
     &__tags
@@ -120,33 +116,35 @@
             flex-wrap: wrap
             align-items: flex-start
 
-            // background: rgba(0, 0, 0, .15)
-
             margin: .3em 0
             padding: .4em .3em
             border-radius: 10px
-
-            // &:first-child
-            //     // border-top: 1px solid var(--color-content-50)
-            //     margin-top: .8em
-                
 
         button
             margin: .3em
             background: transparent
             
     &__title
+        padding: 1em 0 .6em 0
         font-size: .8em
         font-weight: bold
         color: var(--color-content-50)
 
     &__container-filter
-        justify-content: flex-end
         margin: .5em
         font-size: .8em
 
         .btn-standart__text__t
             color: var(--color-content-100)
+        
+        &__text
+            cursor: default
+
+            &:hover:before
+                opacity: 0
+
+        &__text, &__delete
+            background: #8080801a
 
         &__delete:hover
             background: var(--color-danger)
@@ -162,9 +160,6 @@
     height: 0
     opacity: 0
     padding: 0 1.2em 
-    // margin-top: 0 1.5em 0 1.5em
-
-    // transition-property: opacity, height, padding, margin-top
     transition-property: opacity, height, padding
     transition-duration: .9s
     transition-timing-function: var(--animation-timing-standart)

@@ -3,7 +3,6 @@ import Button from "Button.jsx";
 import SearchProperties from "SearchProperties.jsx";
 import SearchAddedFilters from "SearchAddedFilters.jsx";
 
-
 import 'Search.sass';
 import 'SearchProperties.sass';
 
@@ -99,6 +98,9 @@ export default () => {
     // ↓ какие временные метки актуальности добавлены?
     const [attachedActuals, setAttachActuals] = useState([])
 
+    // ↓ какая относительная (!) временная метка добавлена? today | 7d | 14d | 1m 
+    const [attachedRelativeActuals, setAttachRelativeActuals] = useState("none")
+
     // ↓ какие фильтры растений добавлены?
     const [attachedPlantFilters, setPlantFilters] = useState([])
 
@@ -106,10 +108,14 @@ export default () => {
     const [attachedTags, setTags] = useState([])
 
 
-    const countAllFilters =
+    let countAllFilters =
         + attachedPlantFilters.length
         + attachedActuals.length
-        + attachedTags.length;
+        + attachedTags.length
+    if (attachedRelativeActuals != "none") countAllFilters ++
+
+
+    if (countAllFilters === 0 & isOpenAF) tooglePanels('added-filters')
 
 
     const addButtonFilters = () => {
@@ -203,6 +209,8 @@ export default () => {
                 setPlantFilters={setPlantFilters}
                 attachedTags={attachedTags}
                 setTags={setTags}
+                attachedRelativeActuals={attachedRelativeActuals}
+                setAttachRelativeActuals={setAttachRelativeActuals}
             />
 
             <SearchAddedFilters 
@@ -216,6 +224,8 @@ export default () => {
                 setPlantFilters={setPlantFilters}
                 attachedTags={attachedTags}
                 setTags={setTags}
+                attachedRelativeActuals={attachedRelativeActuals}
+                setAttachRelativeActuals={setAttachRelativeActuals}
             />
 
         </div>
