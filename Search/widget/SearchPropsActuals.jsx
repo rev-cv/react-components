@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Button from "Button.jsx";
 
 
@@ -24,32 +24,31 @@ export default ({
         // ↓ РАЗБИРАЕТ ДОПАВЛЕННЫЙ РАНЕЕ ЗАПРОС НА ЭЛЕМЕНТЫ ИЗ periods_of_actual
 
         if (attachedActuals.length === 0) return []
+
+        let result = []
         
-        return periods_of_actual.filter(x => {
+        periods_of_actual.forEach(x => {
 
             let isTrue = false 
 
             attachedActuals.forEach(y => {
 
-                if (
-                    (
-                        y.request[0] >= x.request[0] 
-                        & 
-                        x.request[1] <= y.request[1]
-                    )|(
-                        y.request[1] < y.request[0]
-                        &
-                        y.request[0] <= x.request[0]
-                        &
-                        x.request[1] <= 1231
-                    )
-                ) isTrue = true
-
+                if (y.request[0] <= x.request[0] & x.request[1] <= y.request[1]){
+                    isTrue = true
+                } else if (y.request[0] > y.request[1]) {
+                    if (y.request[0] <= x.request[0] & x.request[1] <= 1231){
+                        isTrue = true
+                    } else if (101 <= x.request[0] & x.request[1] <= y.request[1]){
+                        isTrue = true
+                    }
+                }
             });
 
-            return isTrue
+            if (isTrue) result = [...result, ...x.attach]
 
-        }).map(elem => elem.attach)
+        })
+
+        return [...new Set(result)]
     }
 
 
@@ -151,6 +150,12 @@ export default ({
     return <>
 
         <div
+            className='search-properties__when__preview'
+            key='search-props-when-search-title-4545'
+            children={attachedActuals.map(elem => elem.text).join(", ")}
+        />
+
+        <div
             className='search-properties__when__title'
             key='search-props-when-search-title-now'
             children='Выбрать ближайший актуальный период'
@@ -192,12 +197,6 @@ export default ({
         />
 
         {addActualElems("month")}
-
-        <div
-            className='search-properties__when__preview'
-            key='search-props-when-search-title-4545'
-            children={attachedActuals.map(elem => elem.text).join(",   ")}
-        />
 
     </>
 }

@@ -99,9 +99,9 @@ export default ({
         >
             
             {/* КНОПКИ ПЕРЕКЛЮЧЕНИЯ СТРАНИЦ */}
-            <ButtonContainer className="search-properties__btns" >
+            {/* <ButtonContainer className="search-properties__btns" >
                 {setMenuSearchProps()}
-            </ButtonContainer>
+            </ButtonContainer> */}
 
             {
                 /* ОТОБРАЖЕНИЕ СТРАНИЦЫ С «ЧТО ИСКАТЬ» */

@@ -184,7 +184,7 @@ export default ({
                         </Button>
 
                         <Button
-                            className="tag-container__bar__bread-crumbs__btn-bread"
+                            className="tag-container__bar__bread-crumbs__btn-bread clear"
                             icon="IcoClose"
                             onBtnClick={e => {
                                 updateFixedTags([]);

@@ -126,7 +126,7 @@ body {
   --color-link: hsl(210, 50%, 50%);
   --color-link-hover: hsl(210, 100%, 50%);
   --color-link-visited: hsl(240, 70%, 70%);
-  --color-request-send: #ffaa00;
+  --color-request-send: #ffce6c;
   /* --color-request-send-content: #fff; */
   --color-danger: hsl(0, 100%, 65%);
 }
@@ -435,6 +435,9 @@ button.change-theme {
   align-items: center;
   justify-content: space-between;
   color: var(--color-content-100);
+  border-radius: 2em;
+  border: 1px solid rgba(128, 128, 128, 0.1019607843);
+  padding-right: 0.25em;
 }
 .tag-container__bar__bread-crumbs {
   display: flex;
@@ -446,17 +449,24 @@ button.change-theme {
   margin: 0.5em;
 }
 .tag-container__bar__bread-crumbs__btn-home {
+  background: rgba(128, 128, 128, 0.1019607843);
   width: 2em;
   height: 2em;
   margin: 0.5em;
 }
 .tag-container__bar__bread-crumbs__btn-bread {
+  background: rgba(128, 128, 128, 0.1019607843);
   height: 2em;
   margin: 0.5em;
 }
 .tag-container__bar__bread-crumbs__btn-bread:first-child > svg {
   border-radius: 50%;
   box-shadow: 0 0 10px var(--color-request-send);
+}
+.tag-container__bar__bread-crumbs__btn-bread.clear:hover {
+  background: var(--color-danger);
+  transition: background 0.9s var(--animation-timing-standart);
+  border-color: var(--color-window);
 }
 
 .card-tag {
@@ -753,7 +763,7 @@ button.change-theme {
   font-weight: 500;
   text-align: center;
   min-height: 2.6em;
-  padding-top: 1.6em;
+  padding-top: 1.2em;
 }
 .search-properties__when__title {
   margin: 1.5em 0 1em 0;
@@ -798,6 +808,9 @@ button.change-theme {
   background: var(--color-danger);
   transition: background 0.9s var(--animation-timing-standart);
   border-color: var(--color-window);
+}
+.search-properties__container-attached-filters {
+  overflow-y: auto;
 }
 
 .closing {

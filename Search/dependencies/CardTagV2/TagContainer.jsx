@@ -38,7 +38,6 @@ export default ({
     attachedTags=[],
     returnTagsFixed = (result) => (console.log(result))
 }) => {
-    console.log(attachedTags)
     // ↓ список ID выбранный тегов
     const [fixedIDTags, updateFixedTags] = useState([
         ...attachedTags.map(elem => elem.id)
@@ -184,7 +183,7 @@ export default ({
                         </Button>
 
                         <Button
-                            className="tag-container__bar__bread-crumbs__btn-bread"
+                            className="tag-container__bar__bread-crumbs__btn-bread clear"
                             icon="IcoClose"
                             onBtnClick={e => {
                                 updateFixedTags([]);

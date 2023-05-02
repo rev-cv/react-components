@@ -37,6 +37,11 @@ $gap: .4em
         justify-content: space-between
         color: var(--color-content-100)
 
+        border-radius: 2em
+        border: 1px solid #8080801a
+
+        padding-right: .25em
+
         &__bread-crumbs
             display: flex
             align-items: center
@@ -47,17 +52,24 @@ $gap: .4em
                 margin: .5em
 
             &__btn-home
+                background: #8080801a
                 width: 2em
                 height: 2em
                 margin: .5em
 
             &__btn-bread
+                background: #8080801a
                 height: 2em
                 margin: .5em
 
                 &:first-child > svg 
                     border-radius: 50%
                     box-shadow: 0 0 10px var(--color-request-send)
+                
+                &.clear:hover
+                    background: var(--color-danger)
+                    transition: background .9s var(--animation-timing-standart)
+                    border-color: var(--color-window)
 
 $border-radius: 1.4em
 

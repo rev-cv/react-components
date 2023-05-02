@@ -78,7 +78,7 @@ export default ({
     return <div
         className={isOpenAF ? "search-properties" : "search-properties closing"}
         style={stylePos}
-    >
+    ><div className='search-properties__container-attached-filters' >
         {
             attachedRelativeActuals === "none" ? null :
                 <>
@@ -131,5 +131,6 @@ export default ({
                 )
         }
 
+    </div>
     </div>
 }

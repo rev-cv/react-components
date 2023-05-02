@@ -43,7 +43,7 @@ body {
     --color-link-hover: hsl(210, 100%, 50%);
     --color-link-visited: hsl(240, 70%, 70%);
 
-    --color-request-send: #ffaa00;
+    --color-request-send: #ffce6c;
     /* --color-request-send-content: #fff; */
 
     --color-danger: hsl(0, 100%, 65%);
