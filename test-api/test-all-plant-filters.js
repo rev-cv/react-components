@@ -1,4 +1,3 @@
-const fs = require('fs');
 
 
 const example = {
@@ -355,7 +354,14 @@ const getObject = (s, p, i) => {
 	name = name.replace("- ", "").trim()
 	description = description.replace(re, "").trim()
 
-	return { id: i, type, parent: p, name, description, ...props }
+	return { 
+		i, 
+		t: type, 
+		p, 
+		n: name, 
+		d: description, 
+		...props 
+	}
 }
 
 
@@ -384,11 +390,12 @@ for (let i = 0; i < strings.length; i++) {
 	)
 }
 
+// const fs = require('fs');
+// fs.writeFileSync(
+// 	'test-all-plant-filters.json', 
+// 	JSON.stringify(result, null, 4)
+// )
 
-fs.writeFileSync(
-	'test-all-plant-filters.json', 
-	JSON.stringify(result, null, 4)
-)
+export const allfilters = result
 
-
-console.log(result)
+// console.log(result)
